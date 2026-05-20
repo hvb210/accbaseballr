@@ -24,14 +24,15 @@ remotes::install_github("hvb210/accbaseballr")
 #> Using GitHub PAT from the git credential store.
 #> Downloading GitHub repo hvb210/accbaseballr@HEAD
 #> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/private/var/folders/7j/c0vsmflj6dx0lrgkzvykz15w0000gp/T/RtmpkIVXOP/remotes3dd44ed1843/hvb210-accbaseballr-44a841b/DESCRIPTION’ ... OK
+#> * checking for file ‘/private/var/folders/7j/c0vsmflj6dx0lrgkzvykz15w0000gp/T/RtmpoYbqTf/remotes5656089037d/hvb210-accbaseballr-1ff21d6/DESCRIPTION’ ... OK
 #> * preparing ‘accbaseballr’:
 #> * checking DESCRIPTION meta-information ... OK
 #> * checking for LF line-endings in source and make files and shell scripts
 #> * checking for empty or unneeded directories
 #> * building ‘accbaseballr_0.1.0.tar.gz’
-#> Installing package into '/private/var/folders/7j/c0vsmflj6dx0lrgkzvykz15w0000gp/T/Rtmp4yergN/temp_libpath1656416725949'
+#> Installing package into '/private/var/folders/7j/c0vsmflj6dx0lrgkzvykz15w0000gp/T/Rtmp4yergN/temp_libpath1656453d99bbe'
 #> (as 'lib' is unspecified)
+suppressPackageStartupMessages(library(dplyr))
 ```
 
 ## Available datasets
@@ -48,33 +49,14 @@ remotes::install_github("hvb210/accbaseballr")
 ``` r
 library(accbaseballr)
 library(dplyr)
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 
-batting |>
+invisible(
+  batting |>
   filter(Season == 2025) |>
   arrange(desc(wRC_plus)) |>
   select(Name, Team, wRC_plus, wOBA) |>
   head(10)
-#> # A tibble: 10 × 4
-#>    Name            Team           wRC_plus  wOBA
-#>    <chr>           <chr>             <dbl> <dbl>
-#>  1 Adam McKelvey   Georgia Tech       171. 1.27 
-#>  2 Hideki Prather  Clemson            130. 0.762
-#>  3 Troy Reader     Notre Dame         127. 0.72 
-#>  4 Luca Perriello  Virginia Tech      126. 0.708
-#>  5 Will Broderick  Virginia           125. 0.69 
-#>  6 Jack Brown      Louisville         120. 0.635
-#>  7 Jay Slater      Duke               120. 0.628
-#>  8 Zach Jackson    Duke               118. 0.604
-#>  9 Austin Hartsell Boston College     112. 0.537
-#> 10 Ryder Kirtley   Virginia Tech      111. 0.527
+)
 ```
 
 ## Data source
