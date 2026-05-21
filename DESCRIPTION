@@ -16,3 +16,5 @@ Depends:
     R (>= 4.1.0)
 LazyData: true
 LazyDataCompression: xz
+URL: https://github.com/hvb210/accbasketballr
+BugReports: https://github.com/hvb210/accbasketballr/issues
