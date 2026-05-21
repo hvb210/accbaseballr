@@ -1,6 +1,6 @@
 Package: accbaseballr
 Title: ACC Baseball Datasets with Advanced Sabermetric Metrics
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
     person("Hana", "Baskin", , "hana.baskin@gmail.com", role = c("aut", "cre", "cph"))
 Description: Provides curated ACC (Atlantic Coast Conference) baseball
