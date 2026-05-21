@@ -10,11 +10,11 @@ Provides ACC baseball batting and pitching datasets with
 advanced sabermetric metrics.
 }
 \author{
-\strong{Maintainer}: Hana Baskin \email{hana.baskin@gmail.com}
+\strong{Maintainer}: Hana Baskin \email{hana.baskin@gmail.com} [copyright holder]
 
 Authors:
 \itemize{
-  \item Hana Baskin \email{hana.baskin@gmail.com}
+  \item Hana Baskin \email{hana.baskin@gmail.com} [copyright holder]
 }
 
 }
