@@ -62,7 +62,7 @@ columns:
 }
 }
 \source{
-Data compiled from publicly available college baseball statistics from Sports-Reference and transformed into sabermetric metrics.
+Publicly available ACC baseball statistics transformed into sabermetric metrics for analysis.
 
 Derived from publicly available ACC baseball data from
 Sports-Reference (\url{https://www.sports-reference.com/}).

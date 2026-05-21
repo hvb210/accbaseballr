@@ -32,5 +32,5 @@
 #'   \item{FIP}{Fielding independent pitching}
 #' }
 #'
-#' @source Data compiled from publicly available college baseball statistics from Sports-Reference and transformed into sabermetric metrics.
+#' @source Publicly available ACC baseball statistics transformed into sabermetric metrics for analysis.
 "pitching"

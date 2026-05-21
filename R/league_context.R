@@ -27,5 +27,5 @@
 #'   \item{league_HR_per_9}{League-wide home runs allowed per nine innings}
 #' }
 #'
-#' @source Derived from Sports-Reference data
+#' @source Publicly available ACC baseball statistics transformed into sabermetric metrics for analysis.
 "league_context"

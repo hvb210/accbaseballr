@@ -40,5 +40,5 @@
 #'   \item{wRC_plus}{Weighted runs created plus}
 #' }
 #'
-#' @source Data compiled from publicly available college baseball statistics from Sports-Reference and transformed into sabermetric metrics.
+#' @source Publicly available ACC baseball statistics transformed into sabermetric metrics for analysis.
 "batting"

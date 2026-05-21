@@ -59,7 +59,7 @@ A data frame with one row per season:
 Derived from publicly available ACC baseball data from
 Sports-Reference (\url{https://www.sports-reference.com/}).
 
-Derived from Sports-Reference data
+Publicly available ACC baseball statistics transformed into sabermetric metrics for analysis.
 }
 \usage{
 league_context
