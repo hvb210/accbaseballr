@@ -63,7 +63,7 @@ columns:
 \item{SF}{Integer. Sacrifice fly.}
 \item{IBB}{Integer. Intentional walk.}
 \item{bats}{Character. Batting handedness: \code{"Right"}, \code{"Left"},
-\code{"Both"} or \code{"Unkown}.}
+\code{"Both"} or \code{"Unkown"}.}
 \item{ISO}{Numeric. Isolated power.}
 \item{K_pct}{Numeric. Strikeout percentage.}
 \item{BABIP}{Numeric. Batting average on balls in play.}

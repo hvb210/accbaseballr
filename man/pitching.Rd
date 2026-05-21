@@ -54,7 +54,7 @@ columns:
 \item{BF}{Integer. Batters faced.}
 \item{WHIP}{Numeric. Walks plus hits per inning pitched.}
 \item{throws}{Character. Throwing handedness: \code{"Right"}, \code{"Left"},
-\code{"Both"} or \code{"Unkown}.}
+\code{"Both"} or \code{"Unkown"}.}
 \item{K_pct}{Numeric. Strikeout percentage.}
 \item{BB_pct}{Numeric. Walk percentage.}
 \item{K_BB_pct}{Numeric. Strikeout minus walk percentage.}

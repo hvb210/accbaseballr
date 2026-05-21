@@ -28,7 +28,7 @@
 #'     \item{SF}{Integer. Sacrifice fly.}
 #'     \item{IBB}{Integer. Intentional walk.}
 #'     \item{bats}{Character. Batting handedness: \code{"Right"}, \code{"Left"},
-#'       \code{"Both"} or \code{"Unkown}.}
+#'       \code{"Both"} or \code{"Unkown"}.}
 #'     \item{ISO}{Numeric. Isolated power.}
 #'     \item{K_pct}{Numeric. Strikeout percentage.}
 #'     \item{BABIP}{Numeric. Batting average on balls in play.}
@@ -73,7 +73,7 @@
 #'     \item{BF}{Integer. Batters faced.}
 #'     \item{WHIP}{Numeric. Walks plus hits per inning pitched.}
 #'     \item{throws}{Character. Throwing handedness: \code{"Right"}, \code{"Left"},
-#'       \code{"Both"} or \code{"Unkown}.}
+#'       \code{"Both"} or \code{"Unkown"}.}
 #'     \item{K_pct}{Numeric. Strikeout percentage.}
 #'     \item{BB_pct}{Numeric. Walk percentage.}
 #'     \item{K_BB_pct}{Numeric. Strikeout minus walk percentage.}
@@ -97,9 +97,9 @@
 #'     \item{Name}{Character. Player full name.}
 #'     \item{player_id}{Character. Unique player identifier.}
 #'     \item{bats}{Character. Batting handedness: \code{"Right"}, \code{"Left"},
-#'       \code{"Both"} or \code{"Unkown}.}
+#'       \code{"Both"} or \code{"Unkown"}.}
 #'     \item{throws}{Character. Throwing handedness: \code{"Right"}, \code{"Left"},
-#'        \code{"Both} or \code{"Unkown}.}
+#'        \code{"Both"} or \code{"Unkown"}.}
 #'   }
 #' @source Derived from publicly available ACC baseball data from
 #'   Sports-Reference (<https://www.sports-reference.com/>).

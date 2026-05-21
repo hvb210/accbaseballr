@@ -18,9 +18,9 @@ A data frame with one row per player and the following columns:
 \item{Name}{Character. Player full name.}
 \item{player_id}{Character. Unique player identifier.}
 \item{bats}{Character. Batting handedness: \code{"Right"}, \code{"Left"},
-\code{"Both"} or \code{"Unkown}.}
+\code{"Both"} or \code{"Unkown"}.}
 \item{throws}{Character. Throwing handedness: \code{"Right"}, \code{"Left"},
-\code{"Both} or \code{"Unkown}.}
+\code{"Both"} or \code{"Unkown"}.}
 }
 }
 \source{
