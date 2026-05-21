@@ -9,6 +9,14 @@
 Provides ACC baseball batting and pitching datasets with
 advanced sabermetric metrics.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/hvb210/accbaseballr}
+  \item Report bugs at \url{https://github.com/hvb210/accbaseballr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Hana Baskin \email{hana.baskin@gmail.com} [copyright holder]
 
