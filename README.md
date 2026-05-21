@@ -21,13 +21,6 @@ You can install the development version of accbaseballr like so:
 ``` r
 # install.packages("remotes")
 remotes::install_github("hvb210/accbaseballr")
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#> * checking for file ‘/private/var/folders/7j/c0vsmflj6dx0lrgkzvykz15w0000gp/T/Rtmp4ZTqEX/remotesdcc224aa423/hvb210-accbaseballr-635213c/DESCRIPTION’ ... OK
-#> * preparing ‘accbaseballr’:
-#> * checking DESCRIPTION meta-information ... OK
-#> * checking for LF line-endings in source and make files and shell scripts
-#> * checking for empty or unneeded directories
-#> * building ‘accbaseballr_0.1.0.tar.gz’
 ```
 
 ## Available datasets
