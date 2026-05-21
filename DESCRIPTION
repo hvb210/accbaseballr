@@ -3,7 +3,11 @@ Title: ACC Baseball Datasets with Advanced Sabermetric Metrics
 Version: 0.1.0
 Authors@R: 
     person("Hana", "Baskin", , "hana.baskin@gmail.com", role = c("aut", "cre"))
-Description: Provides curated ACC baseball datasets at the player-season level, including traditional statistics and advanced sabermetric metrics such as wOBA, wRC+, and fielding-independent pitching measures.
+Description: Provides curated ACC (Atlantic Coast Conference) baseball
+    datasets at the player-season level, including traditional statistics
+    and advanced sabermetric metrics such as weighted on-base average
+    (wOBA), weighted runs created plus (wRC+), and fielding-independent
+    pitching (FIP).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -11,3 +15,4 @@ RoxygenNote: 8.0.0
 Depends: 
     R (>= 4.1.0)
 LazyData: true
+LazyDataCompression: xz

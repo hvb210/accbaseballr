@@ -16,39 +16,49 @@ knitr::opts_chunk$set(
 # accbaseballr
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
-The goal of accbaseballr is to ...
+`accbaseballr` provides curated ACC baseball datasets with advanced sabermetric metrics at the player-season level.
+
+The package includes: - Batting statistics - Pitching statistics - Player information - League context statistics - Advanced metrics such as wOBA, wRC+, and FIP
 
 ## Installation
 
 You can install the development version of accbaseballr like so:
 
-``` r
-# FILL THIS IN! HOW CAN PEOPLE INSTALL YOUR DEV PACKAGE?
+```{r eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("hvb210/accbaseballr")
 ```
+
+## Available datasets
+
+| Dataset | Description |
+|------------------------------------|------------------------------------|
+| `batting` | ACC batting statistics with advanced offensive metrics |
+| `pitching` | ACC pitching statistics with advanced pitching metrics |
+| `players` | Player metadata including handedness |
+| `league_context` | League-average statistics used for normalization and metric calculations |
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r, r example, message=FALSE, warning=FALSE, echo=TRUE, results='hide'}
 library(accbaseballr)
-## basic example code
+library(dplyr)
+
+batting |>
+  filter(Season == 2025) |>
+  arrange(desc(wRC_plus)) |>
+  select(Name, Team, wRC_plus, wOBA) |>
+  head(10)
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+## Data source
 
-```{r cars}
-summary(cars)
-```
+Statistics are derived from publicly available ACC baseball data from Sports-Reference and processed into analysis-ready datasets.
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date. `devtools::build_readme()` is handy for this.
+## License
 
-You can also embed plots, for example:
-
-```{r pressure, echo = FALSE}
-plot(pressure)
-```
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub and CRAN.
+MIT License
