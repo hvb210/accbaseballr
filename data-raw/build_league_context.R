@@ -1,7 +1,10 @@
 library(tidyverse)
 
+batting_raw <- read.csv("data-raw/batting.csv")
+pitching_raw <- read.csv("data-raw/pitching.csv")
+
 # league batting stats by season
-league_batting <- batting |>
+league_batting <- batting_raw |>
   group_by(Season) |>
   summarise(
     league_PA = sum(PA, na.rm = TRUE),
@@ -40,7 +43,7 @@ league_context <- league_context |>
   )
 
 # league pitching stats by season
-league_pitching <- pitching |>
+league_pitching <- pitching_raw |>
   group_by(Season) |>
   summarize(
     league_SO = sum(SO, na.rm = TRUE),
