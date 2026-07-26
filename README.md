@@ -14,6 +14,13 @@ The package includes: - Batting statistics - Pitching statistics -
 Player information - League context statistics - Advanced metrics such
 as wOBA, wRC+, and FIP
 
+## Interactive Shiny App
+
+Explore ACC baseball advanced metrics through the Shiny dashboard:
+
+[Launch the ACC Baseball
+Explorer](https://hanabaskin.shinyapps.io/accbaseballr-shiny/)
+
 ## Installation
 
 You can install the development version of accbaseballr like so:
