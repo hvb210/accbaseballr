@@ -42,7 +42,7 @@ ui <- fluidPage(
       # create conditional sliders for numeric filters
 
       conditionalPanel(
-        condition = "input.tabs == 'Batters'",
+        condition = "input.tabs == 'Batting'",
 
         sliderInput(
           "min_PA",
@@ -55,7 +55,7 @@ ui <- fluidPage(
       ),
 
       conditionalPanel(
-        condition = "input.tabs == 'Pitchers'",
+        condition = "input.tabs == 'Pitching'",
 
         sliderInput(
           "min_IP",
@@ -69,6 +69,7 @@ ui <- fluidPage(
 
     ),
 
+
 #### SITE NAVIGATION BUTTONS ###################################################
 
     card(
@@ -80,17 +81,50 @@ ui <- fluidPage(
         id = "tabs",  # tracks which tab user is viewing for conditional sliders
 
         nav_panel(
-          "Batters",
+          "Batting",
           h3(textOutput("batting_title")),
           downloadButton("download_batting", "Download CSV"),
           reactableOutput("batting_table")
         ),
 
         nav_panel(
-          "Pitchers",
+          "Pitching",
           h3(textOutput("pitching_title")),
           downloadButton("download_pitching", "Download CSV"),
           reactableOutput("pitching_table")
+        ),
+
+        nav_panel(
+          "Player Profiles",
+
+          # creates subtabs within the Player Profile panel
+          navset_tab(
+
+            nav_panel(
+              "Batters",
+
+              selectInput(
+                "batter_select",
+                "Select Batter",
+                choices = NULL # this gets populated with updateSelectInput()
+              ),
+
+              reactableOutput("batter_profile")
+            ),
+
+           nav_panel(
+             "Pitchers",
+
+             selectInput(
+               "pitcher_select",
+               "Select Pitcher",
+               choices = NULL # this gets populated with updateSelectInput()
+             ),
+
+             reactableOutput("pitcher_profile")
+           ),
+
+          )
         ),
 
         nav_panel(
@@ -193,7 +227,7 @@ logos <- tibble(
 
 )
 
-server <- function(input, output) {
+server <- function(input, output, session) {
 
 #### BATTING STATISTICS TABLE ##################################################
 
@@ -313,6 +347,235 @@ server <- function(input, output) {
               defaultPageSize = 20)
    })
 
+#### BATTER/PITCHER PLAYER PROFILE ##########################
+
+  # update choices for batter/pitcher based on Season and Team selections
+  observe({
+
+    batter_choices <- batting |>
+      filter(
+        Season == input$Season
+      )
+
+    if (input$Team != "All") {
+      batter_choices <- batter_choices |>
+        filter(Team == input$Team)
+    }
+
+    updateSelectInput(
+      session,
+      "batter_select",
+      choices = sort(unique(batter_choices$Name))
+    )
+
+  })
+
+  observe({
+
+    pitcher_choices <- pitching |>
+      filter(
+        Season == input$Season
+      )
+
+    if (input$Team != "All") {
+      pitcher_choices <- pitcher_choices |>
+        filter(Team == input$Team)
+    }
+
+    updateSelectInput(
+      session,
+      "pitcher_select",
+      choices = sort(unique(pitcher_choices$Name))
+    )
+
+  })
+
+  batter_profile_data <- reactive({
+
+    batter_percentile <- batting |>
+      filter(PA >=50 ) |> # keeps percentile rankings more accurate
+      group_by(Season) |>
+      mutate( # calculate this before filter name so percentiles are for all ACC
+        wRC_plus_percentile = percent_rank(wRC_plus) * 100,
+        BB_percentile = percent_rank(BB_pct) * 100,
+        K_percentile = percent_rank(K_pct) * 100,
+        BABIP_percentile = percent_rank(BABIP) * 100,
+        ISO_percentile = percent_rank(ISO) * 100
+      ) |>
+      ungroup() |>
+      select(
+        Season,
+        Name,
+        wRC_plus_percentile,
+        BB_percentile,
+        K_percentile,
+        BABIP_percentile,
+        ISO_percentile
+      )
+
+    batting |>
+      left_join(
+        batter_percentile,
+        by = c("Season", "Name")
+      ) |>
+      filter(Name == input$batter_select) |>
+      arrange(desc(Season))
+
+  })
+
+  output$batter_profile <- renderReactable({
+
+    batter_profile_data() |>
+      select(
+        Season,
+        Team,
+        PA,
+        wRC_plus,
+        wRC_plus_percentile,
+        BB_pct,
+        BB_percentile,
+        K_pct,
+        K_percentile,
+        BABIP,
+        BABIP_percentile,
+        ISO,
+        ISO_percentile
+      ) |>
+      reactable(
+        columns = list(
+          wRC_plus = colDef(
+            name = "wRC+",
+            format = colFormat(digits = 3)
+          ),
+          ISO = colDef(
+            name = "ISO",
+            format = colFormat(digits = 3)
+          ),
+          wRC_plus_percentile = colDef(
+            name = "wRC+ %ile",
+            format = colFormat(digits = 1)
+          ),
+          ISO_percentile = colDef(
+            name = "ISO %ile",
+            format = colFormat(digits = 1)
+          ),
+          BB_pct = colDef(
+            name = "BB%",
+            format = colFormat(digits = 3)
+          ),
+          BB_percentile = colDef(
+            name = "BB% %ile",
+            format = colFormat(digits = 1)
+          ),
+          K_pct = colDef(
+            name = "K%",
+            format = colFormat(digits = 1)
+          ),
+          K_percentile = colDef(
+            name = "K% %ile",
+            format = colFormat(digits = 1)
+          ),
+          BABIP = colDef(
+            name = "BABIP",
+            format = colFormat(digits = 3)
+          ),
+          BABIP_percentile = colDef(
+            name = "BABIP %ile",
+            format = colFormat(digits = 1)
+          )
+
+        ),
+
+        striped = TRUE,
+        highlight = TRUE,
+        bordered = TRUE,
+        defaultPageSize = 20
+      )
+
+  })
+
+  pitcher_profile_data <- reactive({
+
+    pitcher_percentile <- pitching |>
+      filter(IP >= 50) |> # keeps percentile rankings more accurate
+      group_by(Season) |>
+      mutate(
+        K_BB_percentile = percent_rank(K_BB_pct) * 100,
+        FIP_percentile = (1 - percent_rank(FIP)) * 100,
+        WHIP_percentile = (1 - percent_rank(WHIP)) * 100
+      ) |>
+      ungroup() |>
+      select(
+        Season,
+        Name,
+        K_BB_percentile,
+        FIP_percentile,
+        WHIP_percentile
+      )
+
+    pitching |>
+      left_join(
+        pitcher_percentile,
+        by = c("Season", "Name")
+      ) |>
+      filter(Name == inputer$pitcher_select) |>
+      arrange(desc(Season))
+      filter(Name == input$pitcher_select) |>
+      arrange(desc(Season))
+
+  })
+
+  output$pitcher_profile <- renderReactable({
+
+    pitcher_profile_data() |>
+      select(
+        Season,
+        Team,
+        IP,
+        ERA,
+        WHIP,
+        WHIP_percentile,
+        K_BB_pct,
+        K_BB_percentile,
+        FIP,
+        FIP_percentile
+      ) |>
+      reactable(
+        columns = list(
+          K_BB_pct = colDef(
+            name = "K-BB%",
+            format = colFormat(digits = 3)
+          ),
+          K_BB_percentile = colDef(
+            name = "K-BB% %ile",
+            format = colFormat(digits = 1)
+          ),
+          FIP = colDef(
+            name = "FIP",
+            format = colFormat(digits = 3)
+          ),
+          FIP_percentile = colDef(
+            name = "FIP %ile",
+            format = colFormat(digits = 1)
+          ),
+          WHIP = colDef(
+            name = "WHIP",
+            format = colFormat(digits = 3)
+          ),
+          WHIP_percentile = colDef(
+            name = "WHIP %ile",
+            format = colFormat(digits = 1)
+          )
+
+        ),
+
+        striped = TRUE,
+        highlight = TRUE,
+        bordered = TRUE,
+        defaultPageSize = 20
+      )
+
+  })
 
 #### TEAM LEADERBOARD TABLE ####################################################
 

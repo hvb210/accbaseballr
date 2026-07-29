@@ -5,6 +5,6 @@ account: hanabaskin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17642206
-bundleId: 12337978
+bundleId: 12339029
 url: https://hanabaskin.shinyapps.io/accbaseballr-shiny/
 version: 1
