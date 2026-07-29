@@ -82,18 +82,21 @@ ui <- fluidPage(
         nav_panel(
           "Batters",
           h3(textOutput("batting_title")),
+          downloadButton("download_batting", "Download CSV"),
           reactableOutput("batting_table")
         ),
 
         nav_panel(
           "Pitchers",
           h3(textOutput("pitching_title")),
+          downloadButton("download_pitching", "Download CSV"),
           reactableOutput("pitching_table")
         ),
 
         nav_panel(
           "Conference Leaderboard",
           h3(textOutput("team_leader_title")),
+          downloadButton("download_leader", "Download CSV"),
           reactableOutput("team_leader_table")
         ),
 
@@ -194,28 +197,30 @@ server <- function(input, output) {
 
 #### BATTING STATISTICS TABLE ##################################################
 
-  output$batting_table <- renderReactable({
+  batting_data <- reactive({
 
-    batting_data <- batting |>
+    data <- batting |>
       filter(Season == input$Season,
              PA >= input$min_PA)
 
 
     if (input$Team != "All") {
-      batting_data <- batting_data |>
-        filter(Team == input$Team)
-
-      batting_data <- batting_data |>
+      data |>
+        filter(Team == input$Team) |>
         select(Name, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
     else {
 
-      batting_data <- batting_data |>
+      data |>
         select(Name, Team, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
-    reactable(batting_data,
+  })
+
+  output$batting_table <- renderReactable({
+
+    reactable(batting_data(),
               columns = list(
                 bats = colDef(
                   name = "Bats"
@@ -256,28 +261,30 @@ server <- function(input, output) {
 
 #### PITCHING STATISTICS TABLE #################################################
 
-  output$pitching_table <- renderReactable({
+  pitching_data <- reactive({
 
-    pitching_data <- pitching |>
+    data <- pitching |>
       filter(Season == input$Season,
              IP >= input$min_IP)
 
 
     if (input$Team != "All") {
-      pitching_data <- pitching_data |>
-        filter(Team == input$Team)
-
-      pitching_data <- pitching_data |>
+      data |>
+        filter(Team == input$Team) |>
         select(Name, throws, GS, IP, ERA, H, R, HR, BB, IBB, SO, HBP, WHIP, K_pct, BB_pct, K_BB_pct, FIP)
     }
 
     else {
 
-      pitching_data <- pitching_data |>
+      data |>
         select(Name, Team, throws, GS, IP, ERA, H, R, HR, BB, IBB, SO, HBP, WHIP, K_pct, BB_pct, K_BB_pct, FIP)
     }
 
-    reactable(pitching_data,
+  })
+
+  output$pitching_table <- renderReactable({
+
+    reactable(pitching_data(),
               columns = list(
                 throws = colDef(
                   name = "Throws"
@@ -307,10 +314,9 @@ server <- function(input, output) {
    })
 
 
-
 #### TEAM LEADERBOARD TABLE ####################################################
 
-  output$team_leader_table <- renderReactable({
+  team_leader_data <- reactive({
 
     #batting team averages
     batting_team <- batting |>
@@ -345,10 +351,13 @@ server <- function(input, output) {
       left_join(
         pitching_team,
         by = "Team"
-      )
+      ) |>
+      arrange(desc(wRC_plus))
+  })
 
+  output$team_leader_table <- renderReactable({
 
-    reactable(leaderboard_data,
+    reactable(team_leader_data(),
               defaultSorted = "wRC_plus",
               defaultSortOrder = "desc",
               columns = list(
@@ -407,6 +416,71 @@ server <- function(input, output) {
               defaultPageSize = 20)
   })
 
+#### DOWNLOAD TABLES TO CSV ####################################################
+
+  output$download_batting <- downloadHandler(
+
+    filename = function() {
+      paste0(
+        "acc_batting_",
+        input$Season,
+        "_",
+        input$Team,
+        ".csv"
+      )
+    },
+
+    content = function(file) {
+      write.csv(
+        batting_data(),
+        file,
+        row.names = FALSE
+      )
+    }
+
+  )
+
+  output$download_pitching <- downloadHandler(
+
+    filename = function() {
+      paste0(
+        "acc_pitching_",
+        input$Season,
+        "_",
+        input$Team,
+        ".csv"
+      )
+    },
+
+    content = function(file) {
+      write.csv(
+        pitching_data(),
+        file,
+        row.names = FALSE
+      )
+    }
+
+  )
+
+  output$download_leader <- downloadHandler(
+
+    filename = function() {
+      paste0(
+        "acc_leader_",
+        input$Season,
+        ".csv"
+      )
+    },
+
+    content = function(file) {
+      write.csv(
+        team_leader_data(),
+        file,
+        row.names = FALSE
+      )
+    }
+
+  )
 #### VISUALIZATIONS ############################################################
 
   output$team_plot <- renderPlot({
