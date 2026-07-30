@@ -34,3 +34,6 @@ format:
 
 editor: visual
 
+publish:
+  gh-pages
+
