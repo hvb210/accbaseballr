@@ -1,0 +1,120 @@
+---
+title: "Metrics"
+format: html
+---
+
+# Understanding the Metrics
+
+The ACC Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.
+
+These metrics provide additional context by accounting for league environment, offensive value, and outcomes that are more directly controlled by the player.
+
+---
+
+## Batting
+
+### wOBA
+
+**Weighted On-Base Average** measures a hitter's total offensive value per plate appearance by assigning specific run values to events like walks, singles, doubles, triples, and home runs.
+
+$$
+wOBA = \frac{0.69*BB + 0.72*HBP + 0.89*1B + 1.27*2B + 1.62*3B + 2.10* HR}{AB + BB + HBP + SF}
+$$
+where:
+
+- **BB** = Bases on Balls/Walks
+- **HBP** = Times Hit by a Pitch
+- **1B** = Singles hit
+- **2B** = Doubles hit
+- **3B** = Triples hit
+- **HR** = Home Runs hit
+- **AB** = At Bats
+- **SF** = Sacrifice Flies
+
+### wRC+
+
+**Weighted Runs Created Plus** measures a batter's total offensive value and run creation per plate appearance, adjusted for league run environments.
+
+$$
+wRC+ = \left(\frac{wOBA - wOBA_{league}}{scale} + 1 \right) * 100
+$$
+where:
+
+- **wOBA<sub>league</sub>** = league-average wOBA calculated from all player plate appearances during the season
+- **scale** = wOBA scale factor used to normalize differences in offensive value (1.25)
+
+**Interpretation**
+
+- **100** = league average
+- **120** = 20% above league average
+- **80** = 20% below league average
+
+Higher values indicate stronger offensive performance.
+
+### ISO
+
+**Isolated Power** measures a batter's raw power by calculating how many extra-base hits they average per at-bat.
+
+$$
+SLG - BA
+$$
+where:
+
+- **SLG** = Slugging Percentage
+- **BA* = Batting Average
+
+### BABIP
+
+**Batting Average on Balls in Play** measures how often a batted ball becomes a hit while excluding home runs and strikeouts.
+
+$$
+BABIP = \frac{H - HR}{AB - SO - HR + SF}
+$$
+where:
+
+- **H** = Hits
+- **HR** = Home Runs hit
+- **AB** = At Bats
+- **SO** = Strikeouts
+- **SF** = Sacrifice Flies
+
+---
+
+## Pitching
+
+### K-BB%
+
+**K-BB%** measures a pitcher's control by subtracting total walks (BB) from total strikeouts (SO).
+
+$$
+K-BB% = K% - BB%
+$$
+where:
+
+-**K%** = Strikeouts divided by batters faced
+-**BB%** = Bases on Balls/Walks divided by batters faced
+
+### FIP
+
+**Fielding Independent Pitching** measures a pitcher's true performance by focusing only on the events a pitcher has the most control over.
+
+$$
+FIP = \frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10
+$$
+where:
+
+- **HR** = Home Runs allowed
+- **BB** = Bases on Balls/Walks
+- **HBP** = Times Hit by a Pitch
+- **SO** = Strikeouts
+- **IP** = Innings Pitched
+
+3.10 is used as a constant to approximate a standard Earned Run Average (ERA) scale.
+
+**Interpretation**
+
+Lower FIP values indicate better pitching performance.
+
+---
+
+All metrics are calculated using the `accbaseballr` R package developed for ACC baseball analysis.

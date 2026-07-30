@@ -1,0 +1,59 @@
+---
+title: "What's New"
+format: html
+---
+
+Updates and improvements to the ACC Baseball Explorer.
+
+## July 2026
+
+**Player Profile Pages**
+
+Added individual player profile pages for both batters and pitchers.
+
+Users can now explore:
+
+- Multi-season performance histories
+- Advanced metrics including wRC+, wOBA, ISO, FIP, and K-BB%
+- Season-by-season percentile rankings
+
+Percentile rankings are calculated using season-specific ACC context, allowing player performance to be evaluated relative to peers from the same year.
+
+**Downloadable Data**
+
+Added CSV downloads directly from the Explorer.
+
+Users can now export:
+
+- Batter statistics
+- Pitcher statistics
+- Conference leaderboard data
+
+The downloadable files match the statistics displayed in the application and allow users to perform additional analysis outside of the Explorer.
+
+**ACC Baseball Explorer Launch**
+
+The initial release of the Explorer introduced interactive tools for analyzing ACC baseball performance, including:
+
+- Advanced batting metrics
+- Advanced pitching metrics
+- Team-level comparisons
+- Conference visualizations
+
+## May 2026
+
+**`accbaseballr` R Package Released**
+
+Created the `accbaseballr` R package to provide a standardized framework for analyzing ACC baseball statistics.
+
+The package processes raw college baseball data and calculates advanced metrics including:
+
+wOBA wRC+ ISO FIP K-BB%
+
+The package was submitted to and accepted by CRAN, making it publicly available to the R community.
+
+## Future Improvements
+
+Planned enhancements include:
+
+Continued updates as new ACC baseball seasons become available
