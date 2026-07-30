@@ -197,6 +197,9 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="development">Development</h2>
 <p>This project was built as a way to explore the application of data analytics and statistical modeling within college baseball.</p>
 <p>The goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance.</p>
+<hr>
+<p>Created by Hana Baskin</p>
+<p>Connect: <a href="https://www.linkedin.com/in/hana-baskin-2492862a/" target="_blank">LinkedIn</a></p>
 
 
 </section>
@@ -275,7 +278,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/hvb210\.github\.io\/accbasketballr\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -41,3 +41,9 @@ The ACC Baseball Explorer was built using:
 This project was built as a way to explore the application of data analytics and statistical modeling within college baseball.
 
 The goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance.
+
+---
+
+Created by Hana Baskin
+
+Connect: [LinkedIn](https://www.linkedin.com/in/hana-baskin-2492862a/){target="_blank"}
