@@ -109,7 +109,10 @@ ui <- fluidPage(
                 choices = NULL # this gets populated with updateSelectInput()
               ),
 
-              reactableOutput("batter_profile")
+              reactableOutput("batter_profile"),
+
+              p("Percentiles are calculated within each season among ACC players with
+                at least 50 plate appearances.")
             ),
 
            nav_panel(
@@ -121,7 +124,10 @@ ui <- fluidPage(
                choices = NULL # this gets populated with updateSelectInput()
              ),
 
-             reactableOutput("pitcher_profile")
+             reactableOutput("pitcher_profile"),
+
+             p("Percentiles are calculated within each season among ACC players with
+                at least 50 innings pitched.")
            ),
 
           )
@@ -204,7 +210,8 @@ logos <- tibble(
     "Florida State",
     "Louisville",
     "Wake Forest",
-    "California"
+    "California",
+    "Maryland"
   ),
   logo = c(
     "www/duke_logo.png",
@@ -222,7 +229,8 @@ logos <- tibble(
     "www/fsu_logo.png",
     "www/louisville_logo.png",
     "www/wake_logo.png",
-    "www/cal_logo.png"
+    "www/cal_logo.png",
+    "www/maryland_logo.png"
   )
 
 )
@@ -518,8 +526,6 @@ server <- function(input, output, session) {
         pitcher_percentile,
         by = c("Season", "Name")
       ) |>
-      filter(Name == inputer$pitcher_select) |>
-      arrange(desc(Season))
       filter(Name == input$pitcher_select) |>
       arrange(desc(Season))
 
