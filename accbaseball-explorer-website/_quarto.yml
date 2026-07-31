@@ -3,6 +3,11 @@ project:
 
 website:
   title: "ACC Baseball Explorer"
+  page-footer:
+    center: |
+      Created by Hana Baskin
+
+      **Connect:** <hana.baskin@gmail.com>
 
   navbar:
     left:
