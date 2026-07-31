@@ -4,14 +4,13 @@ title: "About the Project"
 
 ## Background
 
-The ACC Baseball Explorer was created to provide a centralized resource for analyzing Atlantic Coast Conference baseball performance using advanced sabermetric statistics.
+The ACC Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.
 
-While Major League Baseball has widely adopted advanced metrics such as wRC+ and FIP, college baseball analysis has historically relied more heavily on traditional statistics. This project applies similar analytical approaches to ACC baseball, allowing player and team performance to be evaluated in greater context.
-
+This project applies similar approaches to ACC baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods.
 
 ## Data Source
 
-The ACC Baseball Explorer uses publicly available college baseball statistics (Sports Reference) from ACC programs dating back to 2011.
+The ACC Baseball Explorer uses publicly available college baseball statistics from ACC programs dating back to 2011.
 
 The underlying data is processed through the `accbaseballr` R package, which was developed specifically to calculate advanced sabermetrics metrics including:
 
