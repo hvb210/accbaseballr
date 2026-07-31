@@ -1,6 +1,9 @@
 project:
   type: website
 
+resources:
+  - CNAME
+
 website:
   title: "ACC Baseball Explorer"
   google-analytics: "G-73DDQNMS2L"
