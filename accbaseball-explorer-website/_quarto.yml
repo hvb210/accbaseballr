@@ -3,6 +3,7 @@ project:
 
 website:
   title: "ACC Baseball Explorer"
+  google-analytics: "G-73DDQNMS2L"
   page-footer:
     center: |
       Created by Hana Baskin
