@@ -24,6 +24,7 @@ website:
       - href: whats-new.qmd
         text: What's New
 
+
     right:
       - text: GitHub
         href: https://github.com/hvb210/accbaseballr
@@ -31,6 +32,8 @@ website:
       - text: R package
         href: https://cran.r-project.org/web/packages/accbaseballr/index.html
         target: _blank
+      - text: Support
+        href: support.qmd
 
 
 format:
