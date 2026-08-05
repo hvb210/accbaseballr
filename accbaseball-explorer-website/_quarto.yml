@@ -32,7 +32,7 @@ website:
       - text: R package
         href: https://cran.r-project.org/web/packages/accbaseballr/index.html
         target: _blank
-      - text: Support
+      - text: Contribute
         href: support.qmd
 
 
