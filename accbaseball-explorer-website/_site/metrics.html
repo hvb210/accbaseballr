@@ -156,6 +156,10 @@ window.Quarto = {
     <a class="nav-link" href="https://cran.r-project.org/web/packages/accbaseballr/index.html" target="_blank"> 
 <span class="menu-text">R package</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./support.html"> 
+<span class="menu-text">Support</span></a>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -389,7 +393,7 @@ FIP = \frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ballclubdata\.com");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

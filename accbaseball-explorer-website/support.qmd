@@ -1,9 +1,7 @@
 ---
-title: "Support"
+title: "Support the Project"
 format: html
 ---
-
-## Support the Project
 
 Ball Club Data is an independent project that I develop and maintain in my spare time. Every dataset is carefully collected, cleaned, and maintained, and new features are continually being added to make college baseball statistics more accessible and insightful.
 
@@ -22,8 +20,6 @@ Your support helps fund website hosting and allows me to continue expanding the 
 
 **Venmo:** @hvb210
 
-<img src="hvb210-venmo.png" alt="Venmo QR Code" width="250"/>
-
-------------------------------------------------------------------------
+<img src="/images/hvb210-venmo.png" alt="Venmo QR Code" width="250"/>
 
 Thank you for visiting Ball Club Data. Whether you contribute, share the site, or simply use it, I sincerely appreciate your support.

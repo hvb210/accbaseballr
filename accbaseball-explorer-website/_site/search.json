@@ -63,6 +63,20 @@
     "text": "Development\nThis project was built as a way to explore the application of data analytics and statistical modeling within college baseball.\nThe goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance."
   },
   {
+    "objectID": "support.html",
+    "href": "support.html",
+    "title": "Support the Project",
+    "section": "",
+    "text": "Ball Club Data is an independent project that I develop and maintain in my spare time. Every dataset is carefully collected, cleaned, and maintained, and new features are continually being added to make college baseball statistics more accessible and insightful.\nThe site will always remain free to use. If you’ve found it valuable and would like to support its continued development, your contribution is greatly appreciated.\nYour support helps fund website hosting and allows me to continue expanding the platform with additional conferences, historical data, and new analytical tools."
+  },
+  {
+    "objectID": "support.html#contribute",
+    "href": "support.html#contribute",
+    "title": "Support the Project",
+    "section": "Contribute",
+    "text": "Contribute\nVenmo: @hvb210\n\nThank you for visiting Ball Club Data. Whether you contribute, share the site, or simply use it, I sincerely appreciate your support."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Advanced Analytics for ACC Baseball",
