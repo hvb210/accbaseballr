@@ -1,10 +1,172 @@
 library(shiny)
-library(accbaseballr)
-library(dplyr)
+library(tidyverse)
 library(bslib)
 library(reactable)
 library(ggplot2)
 library(ggimage)
+
+
+college_batting_raw <- readRDS("data/batting.rds")
+college_pitching_raw <- readRDS("data/pitching.rds")
+
+### BUILD LEAGUE CONTEXT #######################################################
+
+# league batting stats by season
+league_batting <- college_batting_raw |>
+  group_by(Season) |>
+  summarise(
+    league_PA = sum(PA, na.rm = TRUE),
+    league_H = sum(H, na.rm = TRUE),
+    league_2B = sum(`2B`, na.rm = TRUE),
+    league_3B = sum(`3B`, na.rm = TRUE),
+    league_HR = sum(HR, na.rm = TRUE),
+    league_BB = sum(BB, na.rm = TRUE),
+    league_HBP = sum(HBP, na.rm = TRUE),
+    league_SF = sum(SF, na.rm = TRUE),
+    league_AB = sum(AB, na.rm = TRUE),
+    league_BA = sum(BA, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# league 1B and wOBA calculation
+league_context <- league_batting |>
+  mutate(
+    league_1B = league_H - league_2B - league_3B - league_HR,
+    league_wOBA =
+      (
+        0.69 * league_BB +
+          0.72 * league_HBP +
+          0.89 * league_1B +
+          1.27 * league_2B +
+          1.62 * league_3B +
+          2.10 * league_HR
+      ) /
+      (league_AB + league_BB + league_HBP + league_SF)
+  )
+
+# adding in league averages for bases on balls
+league_context <- league_context |>
+  mutate(
+    league_BB_rate = league_BB / league_PA
+  )
+
+# league pitching stats by season
+league_pitching <- college_pitching_raw |>
+  group_by(Season) |>
+  summarize(
+    league_SO = sum(SO, na.rm = TRUE),
+    p_league_BB = sum(BB, na.rm = TRUE),
+    p_league_HR = sum(HR, na.rm = TRUE),
+    league_IP = sum(IP, na.rm = TRUE),
+    .groups = "drop"
+  ) |>
+  mutate(
+    league_K_per_9 = (league_SO / league_IP) * 9,
+    league_BB_per_9 = (p_league_BB / league_IP) * 9,
+    league_HR_per_9 = (p_league_HR / league_IP) * 9
+  )
+
+# combine league averages for batting and pitching
+league_context <- left_join(
+  league_context,
+  league_pitching,
+  by = "Season"
+)
+
+### BATTING SABERMETRICS #######################################################
+
+college_batting <- college_batting_raw |>
+  mutate(
+    bats = case_when(
+      str_detect(Name, "\\*") ~ "Left",
+      str_detect(Name, "#") ~ "Both",
+      str_detect(Name, "\\?") ~ "Unknown",
+      TRUE ~ "Right"
+    ),
+    Name = str_remove_all(Name, "\\*|#|\\?"),
+    player_id = str_extract(`Name-additional`, "(?<=id=).*")
+  )
+
+college_batting <- college_batting |>
+  mutate(
+    ISO = SLG - BA,
+    K_pct = SO / PA,
+    BABIP = (H - HR) / (AB - SO - HR + SF),
+    BB_pct = BB / PA
+  )
+
+college_batting <- college_batting |>
+  mutate(
+    `1B` = H - `2B` - `3B` - HR
+  )
+
+college_batting <- college_batting |>
+  mutate(
+    wOBA =
+      (
+        0.69 * BB +
+          0.72 * HBP +
+          0.89 * `1B` +
+          1.27 * `2B` +
+          1.62 * `3B` +
+          2.10 * HR
+      ) /
+      (AB + BB + HBP + SF)
+  )
+
+# join the league_wOBA with player level batting data
+college_batting <- college_batting |>
+  left_join(
+    league_context |> select(Season, league_wOBA),
+    by = "Season"
+  )
+
+# create a scale of 1.25 for normalizing wRC+
+college_batting <- college_batting |>
+  group_by(Season) |>
+  mutate(
+    scale = 1.25
+  ) |>
+  ungroup()
+
+# calculate wRC+
+college_batting <- college_batting |>
+  mutate(
+    wRC_plus = 100 * ((wOBA - league_wOBA) / scale + 1)
+  )
+
+# drop columns not used in calculations
+college_batting <- college_batting |>
+  select(-c(CS, RBI, SB, OBP, OPS, TB, GDP, SH, Notes, `Name-additional`, `...31`, `...32`, `...33`))
+
+### PITCHING SABERMETRICS ######################################################
+
+college_pitching <- college_pitching_raw |>
+  mutate(
+    throws = case_when(
+      str_detect(Name, "\\*") ~ "Left",
+      str_detect(Name, "#") ~ "Both",
+      str_detect(Name, "\\?") ~ "Unknown",
+      TRUE ~ "Right"
+    ),
+    Name = str_remove_all(Name, "\\*|#|\\?"),
+    player_id = str_extract(`Name-additional`, "(?<=id=).*")
+  )
+
+college_pitching <- college_pitching |>
+  mutate(
+    K_pct = SO / BF,
+    BB_pct = BB / BF,
+    K_BB_pct = K_pct - BB_pct,
+    FIP = (13 * HR + 3 * (BB + HBP) - 2 * SO) / IP + 3.10
+  )
+
+# drop columns not used in calculations
+college_pitching <- college_pitching |>
+  select(-c(W, L, `W-L%`, G, GF, CG, SHO, SV, BK, WP, H9, HR9, BB9, SO9, `SO/W`, Notes, `Name-additional`))
+
+
+### UI BUILD ###################################################################
 
 ui <- fluidPage(
   theme = bs_theme(
@@ -14,9 +176,9 @@ ui <- fluidPage(
     fg = "#013ca6"
   ),
 
-  titlePanel("ACC Baseball Explorer"),
+  titlePanel("College Baseball Explorer"),
 
-#### SIDEBAR DROPDOWNS AND SLIDERS #############################################
+  #### SIDEBAR DROPDOWNS AND SLIDERS #############################################
 
   layout_sidebar(
 
@@ -25,17 +187,23 @@ ui <- fluidPage(
       # creating static sidebar drop down options
 
       selectInput(
+        "Conference",  # variable name in dataset
+        "Conference",  # label shown in app
+        choices = c("All", sort(unique(college_batting$Conference),
+                       decreasing = TRUE))
+      ),
+
+      selectInput(
         "Season",  # variable name in dataset
         "Season",  # label shown in app
-        choices = sort(unique(batting$Season),
+        choices = sort(unique(college_batting$Season),
                        decreasing = TRUE)
       ),
 
       selectInput(
         "Team",
         "Team",
-        choices = c("All", sort(unique(batting$Team),
-                       decreasing = FALSE))
+        choices = "All"
       ),
 
 
@@ -48,10 +216,10 @@ ui <- fluidPage(
           "min_PA",
           "Minimum PA",
           min = 0,
-          max = max(batting$PA),
+          max = max(college_batting$PA),
           value = 50,  # setting default value to 50 PA
           step = 5
-          ),
+        ),
       ),
 
       conditionalPanel(
@@ -61,16 +229,16 @@ ui <- fluidPage(
           "min_IP",
           "Minimum IP",
           min = 0,
-          max = max(pitching$IP),
+          max = max(college_pitching$IP),
           value = 50,  # setting default value to 50 IP
           step = 5
-          )
-    )
+        )
+      )
 
     ),
 
 
-#### SITE NAVIGATION BUTTONS ###################################################
+    #### SITE NAVIGATION BUTTONS ###################################################
 
     card(
 
@@ -111,24 +279,26 @@ ui <- fluidPage(
 
               reactableOutput("batter_profile"),
 
-              p("Percentiles are calculated within each season among ACC players with
+              p("Percentiles are calculated within each season among conference players
+                and among Power Four conference players with
                 at least 50 plate appearances.")
             ),
 
-           nav_panel(
-             "Pitchers",
+            nav_panel(
+              "Pitchers",
 
-             selectInput(
-               "pitcher_select",
-               "Select Pitcher",
-               choices = NULL # this gets populated with updateSelectInput()
-             ),
+              selectInput(
+                "pitcher_select",
+                "Select Pitcher",
+                choices = NULL # this gets populated with updateSelectInput()
+              ),
 
-             reactableOutput("pitcher_profile"),
+              reactableOutput("pitcher_profile"),
 
-             p("Percentiles are calculated within each season among ACC players with
+              p("Percentiles are calculated within each season among conference players
+                and among Power Four conference players with
                 at least 50 innings pitched.")
-           ),
+            ),
 
           )
         ),
@@ -153,7 +323,7 @@ ui <- fluidPage(
                 "wRC+" = "wRC_plus",
                 "wOBA vs ISO" = "offensive_profile",
                 "FIP vs K-BB%" = "pitching_profile")
-              ),
+            ),
             plotOutput("team_plot",
                        height = "500px"), # keeps text from overlapping plot
             textOutput("plot_description")
@@ -163,9 +333,10 @@ ui <- fluidPage(
 
         nav_panel(
           "About",
-          h3("About the ACC Baseball Explorer"),
-          p("This app explores historical ACC baseball performance using data from the accbaseballr R package."),
-          p("The dataset includes player-level batting and pitching statistics from ACC baseball seasons."),
+          h3("About the College Baseball Explorer"),
+          p("This app explores historical Power Four baseball performance using data curated from Sports Reference
+            and enhanced with advanced sabermetric calculations."),
+          p("The dataset includes player-level batting and pitching statistics from ACC, SEC, Big 12, and Big Ten baseball seasons from 2011-present."),
           h4("Batting Metrics"),
           p("wOBA (weighted On-Base Average) measures a hitter’s total offensive value per plate appearance using the following weights
           for different offensive outcomes: 0.69 (BB), 0.72 (HBP), 0.89 (1B), 1.27 (2B), 1.62 (3B), and 2.10 (HR)."),
@@ -181,11 +352,9 @@ ui <- fluidPage(
           p("FIP (Fielding Independent Pitching) measures a pitcher's true performance using only strikeouts, walks, hit-by-pitches, and home runs.
             It removes balls hit into play to eliminate luck and the quality of team defense."),
           h4("Data Source"),
-          p("The underlying player statistics were collected from Sports Reference and processed through accbaseballr,
-          an R package created to provide access to advanced ACC baseball statistics.
-          The package includes tools for calculating and exploring metrics such as wOBA, wRC+, and FIP
+          p("The underlying player statistics were collected from Sports Reference and processed using R
+            to calculate and exploring metrics such as wOBA, wRC+, and FIP
             that are not typically available through standard college baseball statistics sources."),
-          p("accbaseballr is publicly available through CRAN, making these data and analytical tools accessible to the broader R community."),
           p("Created by Hana Baskin as a project exploring advanced analytics in college baseball.")
         )
       )
@@ -212,7 +381,23 @@ logos <- tibble(
     "Louisville",
     "Wake Forest",
     "California",
-    "Maryland"
+    "Maryland",
+    "Georgia",
+    "Alabama",
+    "Texas",
+    "LSU",
+    "Arkansas",
+    "Texas A&M",
+    "Auburn",
+    "Mississippi State",
+    "Florida",
+    "Oklahoma",
+    "Tennessee",
+    "Kentucky",
+    "Ole Miss",
+    "South Carolina",
+    "Missouri",
+    "Vanderbilt"
   ),
   logo = c(
     "www/duke_logo.png",
@@ -231,32 +416,85 @@ logos <- tibble(
     "www/louisville_logo.png",
     "www/wake_logo.png",
     "www/cal_logo.png",
-    "www/maryland_logo.png"
+    "www/maryland_logo.png",
+    "www/georgia_logo.png",
+    "www/alabama_logo.png",
+    "www/texas_logo.png",
+    "www/lsu_logo.png",
+    "www/arkansas_logo.png",
+    "www/texasam_logo.png",
+    "www/auburn_logo.png",
+    "www/mississippi_state_logo.png",
+    "www/florida_logo.png",
+    "www/oklahoma_logo.png",
+    "www/tennessee_logo.png",
+    "www/kentucky_logo.png",
+    "www/ole_miss_logo.png",
+    "www/south_carolina_logo.png",
+    "www/missouri_logo.png",
+    "www/vanderbilt_logo.png"
   )
 
 )
 
 server <- function(input, output, session) {
 
-#### BATTING STATISTICS TABLE ##################################################
+  observeEvent(input$Conference, {
+
+    if(input$Conference == "All") {
+
+      team_choices <- college_batting |>
+        pull(Team) |>
+        unique() |>
+        sort()
+
+    } else {
+
+    # only shows teams that belong to selected conference
+    team_choices <- college_batting |>
+      filter(Conference == input$Conference) |>
+      pull(Team) |>
+      unique() |>
+      sort()
+    }
+
+    updateSelectInput(
+      session,
+      "Team",
+      choices = c("All", team_choices),
+      selected = "All"
+    )
+  }
+
+  )
+
+  #### BATTING STATISTICS TABLE ##################################################
 
   batting_data <- reactive({
 
-    data <- batting |>
+    data <- college_batting |>
       filter(Season == input$Season,
              PA >= input$min_PA)
 
+    if(input$Conference != "All") {
+      data <- data |>
+        filter(Conference == input$Conference)
+    }
+
+    if(input$Team !="All") {
+      data <- data |>
+        filter(Team == input$Team)
+    }
 
     if (input$Team != "All") {
       data |>
-        filter(Team == input$Team) |>
         select(Name, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
     else {
 
       data |>
-        select(Name, Team, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
+        select(Name, Team, Conference, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
   })
@@ -266,7 +504,11 @@ server <- function(input, output, session) {
     reactable(batting_data(),
               columns = list(
                 Name = colDef(
-                  sticky = "left"
+                  sticky = "left",
+                  width = 160
+                ),
+                Team = colDef(
+                  width = 140
                 ),
                 bats = colDef(
                   name = "Bats"
@@ -296,7 +538,10 @@ server <- function(input, output, session) {
                   format = colFormat(digits = 3)
                 )
               ),
-
+              defaultColDef = colDef(
+                style = list(whiteSpace = "nowrap"),
+                headerStyle = list(whiteSpace = "nowrap")
+              ),
               filterable = TRUE,
               striped = TRUE,
               highlight = TRUE,
@@ -305,25 +550,33 @@ server <- function(input, output, session) {
 
   })
 
-#### PITCHING STATISTICS TABLE #################################################
+  #### PITCHING STATISTICS TABLE #################################################
 
   pitching_data <- reactive({
 
-    data <- pitching |>
+    data <- college_pitching |>
       filter(Season == input$Season,
              IP >= input$min_IP)
 
+    if (input$Conference != "All") {
+      data <- data |>
+        filter(Conference == input$Conference)
+    }
+
+    if (input$Team != "All") {
+      data <- data |>
+        filter(Team == input$Team)
+    }
 
     if (input$Team != "All") {
       data |>
-        filter(Team == input$Team) |>
         select(Name, throws, GS, IP, ERA, H, R, HR, BB, IBB, SO, HBP, WHIP, K_pct, BB_pct, K_BB_pct, FIP)
     }
 
     else {
 
       data |>
-        select(Name, Team, throws, GS, IP, ERA, H, R, HR, BB, IBB, SO, HBP, WHIP, K_pct, BB_pct, K_BB_pct, FIP)
+        select(Name, Team, Conference, throws, GS, IP, ERA, H, R, HR, BB, IBB, SO, HBP, WHIP, K_pct, BB_pct, K_BB_pct, FIP)
     }
 
   })
@@ -333,7 +586,11 @@ server <- function(input, output, session) {
     reactable(pitching_data(),
               columns = list(
                 Name = colDef(
-                  sticky = "left"
+                  sticky = "left",
+                  width = 160
+                ),
+                Team = colDef(
+                  width = 140
                 ),
                 throws = colDef(
                   name = "Throws"
@@ -354,28 +611,37 @@ server <- function(input, output, session) {
                   format = colFormat(digits = 3)
                 )
               ),
-
+              defaultColDef = colDef(
+                style = list(whiteSpace = "nowrap"),
+                headerStyle = list(whiteSpace = "nowrap")
+              ),
               filterable = TRUE,
               striped = TRUE,
               highlight = TRUE,
               bordered = TRUE,
               defaultPageSize = 20)
-   })
+  })
 
-#### BATTER/PITCHER PLAYER PROFILE ##########################
+  #### BATTER/PITCHER PLAYER PROFILE ##########################
 
   # update choices for batter/pitcher based on Season and Team selections
   observe({
 
-    batter_choices <- batting |>
+    batter_choices <- college_batting |>
       filter(
         Season == input$Season
       )
+
+    if(input$Conference != "All") {
+      batter_choices <- batter_choices |>
+        filter(Conference == input$Conference)
+    }
 
     if (input$Team != "All") {
       batter_choices <- batter_choices |>
         filter(Team == input$Team)
     }
+
 
     updateSelectInput(
       session,
@@ -387,10 +653,15 @@ server <- function(input, output, session) {
 
   observe({
 
-    pitcher_choices <- pitching |>
+    pitcher_choices <- college_pitching |>
       filter(
         Season == input$Season
       )
+
+    if (input$Conference != "All") {
+      pitcher_choices <- pitcher_choices |>
+        filter(Conference == input$Conference)
+    }
 
     if (input$Team != "All") {
       pitcher_choices <- pitcher_choices |>
@@ -407,10 +678,10 @@ server <- function(input, output, session) {
 
   batter_profile_data <- reactive({
 
-    batter_percentile <- batting |>
+    batter_percentile <- college_batting |>
       filter(PA >=50 ) |> # keeps percentile rankings more accurate
       group_by(Season) |>
-      mutate( # calculate this before filter name so percentiles are for all ACC
+      mutate( # calculate this before filter name so percentiles are for all conferences
         wRC_plus_percentile = percent_rank(wRC_plus) * 100,
         BB_percentile = percent_rank(BB_pct) * 100,
         K_percentile = percent_rank(K_pct) * 100,
@@ -428,10 +699,11 @@ server <- function(input, output, session) {
         ISO_percentile
       )
 
-    batting |>
+    college_batting |>
       left_join(
         batter_percentile,
-        by = c("Season", "Name")
+        by = c("Season", "Name"),
+        relationship = "many-to-many"
       ) |>
       filter(Name == input$batter_select) |>
       arrange(desc(Season))
@@ -444,6 +716,7 @@ server <- function(input, output, session) {
       select(
         Season,
         Team,
+        Conference,
         PA,
         wRC_plus,
         wRC_plus_percentile,
@@ -459,7 +732,11 @@ server <- function(input, output, session) {
       reactable(
         columns = list(
           Season = colDef( # freeze column
-            sticky = "left"
+            sticky = "left",
+            width = 160
+          ),
+          Team = colDef(
+            width = 140
           ),
           wRC_plus = colDef(
             name = "wRC+",
@@ -501,9 +778,11 @@ server <- function(input, output, session) {
             name = "BABIP %ile",
             format = colFormat(digits = 1)
           )
-
         ),
-
+        defaultColDef = colDef(
+          style = list(whiteSpace = "nowrap"),
+          headerStyle = list(whiteSpace = "nowrap")
+        ),
         striped = TRUE,
         highlight = TRUE,
         bordered = TRUE,
@@ -514,7 +793,7 @@ server <- function(input, output, session) {
 
   pitcher_profile_data <- reactive({
 
-    pitcher_percentile <- pitching |>
+    pitcher_percentile <- college_pitching |>
       filter(IP >= 50) |> # keeps percentile rankings more accurate
       group_by(Season) |>
       mutate(
@@ -531,7 +810,7 @@ server <- function(input, output, session) {
         WHIP_percentile
       )
 
-    pitching |>
+    college_pitching |>
       left_join(
         pitcher_percentile,
         by = c("Season", "Name")
@@ -559,7 +838,11 @@ server <- function(input, output, session) {
       reactable(
         columns = list(
           Season = colDef(
-            sticky = "left"
+            sticky = "left",
+            width = 160
+          ),
+          Team = colDef(
+            width = 140
           ),
           K_BB_pct = colDef(
             name = "K-BB%",
@@ -585,9 +868,11 @@ server <- function(input, output, session) {
             name = "WHIP %ile",
             format = colFormat(digits = 1)
           )
-
         ),
-
+        defaultColDef = colDef(
+          style = list(whiteSpace = "nowrap"),
+          headerStyle = list(whiteSpace = "nowrap")
+        ),
         striped = TRUE,
         highlight = TRUE,
         bordered = TRUE,
@@ -596,15 +881,23 @@ server <- function(input, output, session) {
 
   })
 
-#### TEAM LEADERBOARD TABLE ####################################################
+  #### TEAM LEADERBOARD TABLE ####################################################
 
   team_leader_data <- reactive({
 
     #batting team averages
-    batting_team <- batting |>
+    batting_team <- college_batting |>
       filter(Season == input$Season,
-             PA > 0) |>
-      group_by(Team) |>
+             PA > 0
+             )
+
+    if(input$Conference != "All") {
+      batting_team <- batting_team |>
+        filter(Conference == input$Conference)
+    }
+
+    batting_team <- batting_team |>
+      group_by(Conference, Team) |>
       summarise(
         wRC_plus = mean(wRC_plus, na.rm = TRUE),
         wOBA = mean(wOBA, na.rm = TRUE),
@@ -615,24 +908,38 @@ server <- function(input, output, session) {
       )
 
     # pitching team averages
-    pitching_team <- pitching |>
+    pitching_team <- college_pitching |>
       filter(Season == input$Season,
-             IP > 0) |>
-      group_by(Team) |>
+             IP > 0)
+
+    if (input$Conference != "All") {
+      pitching_team <- pitching_team |>
+        filter(Conference == input$Conference)
+    }
+
+    pitching_team <- pitching_team |>
+      group_by(Conference, Team) |>
       summarise(
         FIP = mean(FIP, na.rm = TRUE),
         K_BB_pct = mean(K_BB_pct, na.rm = TRUE),
         ERA = mean(ERA, na.rm = TRUE),
         WHIP = mean(WHIP, na.rm = TRUE),
         SO_pitch = mean(SO, na.rm = TRUE),
-        total_HBP = sum(HBP, na.rm = TRUE)
-      )
+        total_HBP = sum(HBP, na.rm = TRUE),
+        .groups = "drop"
+      ) |>
+      select(-Conference) # removes column so the join doesn't duplicate
 
     # join batting and pitching stats together by team name
     leaderboard_data <- batting_team |>
       left_join(
         pitching_team,
         by = "Team"
+      ) |>
+      select(
+        Team, # puts teams first so this column can be frozen
+        Conference,
+        everything()
       ) |>
       arrange(desc(wRC_plus))
   })
@@ -643,6 +950,13 @@ server <- function(input, output, session) {
               defaultSorted = "wRC_plus",
               defaultSortOrder = "desc",
               columns = list(
+                Team = colDef(
+                  sticky = "left",
+                  width = 160
+                ),
+                Team = colDef(
+                  width = 140
+                ),
                 wRC_plus = colDef(
                   name = "Avg wRC+",
                   format = colFormat(digits = 3)
@@ -691,6 +1005,10 @@ server <- function(input, output, session) {
                 )
               ),
 
+              defaultColDef = colDef(
+                style = list(whiteSpace = "nowrap"),
+                headerStyle = list(whiteSpace = "nowrap")
+              ),
               filterable = TRUE,
               striped = TRUE,
               highlight = TRUE,
@@ -698,13 +1016,13 @@ server <- function(input, output, session) {
               defaultPageSize = 20)
   })
 
-#### DOWNLOAD TABLES TO CSV ####################################################
+  #### DOWNLOAD TABLES TO CSV ####################################################
 
   output$download_batting <- downloadHandler(
 
     filename = function() {
       paste0(
-        "acc_batting_",
+        "batting_",
         input$Season,
         "_",
         input$Team,
@@ -726,7 +1044,7 @@ server <- function(input, output, session) {
 
     filename = function() {
       paste0(
-        "acc_pitching_",
+        "pitching_",
         input$Season,
         "_",
         input$Team,
@@ -748,7 +1066,8 @@ server <- function(input, output, session) {
 
     filename = function() {
       paste0(
-        "acc_leader_",
+        input$Conference,
+        "_leader_",
         input$Season,
         ".csv"
       )
@@ -763,7 +1082,35 @@ server <- function(input, output, session) {
     }
 
   )
-#### VISUALIZATIONS ############################################################
+  #### VISUALIZATIONS ############################################################
+
+  filtered_batting <- reactive({
+
+    data <- college_batting |>
+      filter(Season == input$Season)
+
+    if (input$Conference != "All") {
+      data <- data |>
+        filter(Conference == input$Conference)
+    }
+
+    data
+
+  })
+
+  filtered_pitching <- reactive({
+
+    data <- college_pitching |>
+      filter(Season == input$Season)
+
+    if (input$Conference != "All") {
+      data <- data |>
+        filter(Conference == input$Conference)
+    }
+
+    data
+
+  })
 
   output$team_plot <- renderPlot({
 
@@ -771,33 +1118,29 @@ server <- function(input, output, session) {
 
     if(metric == "wRC_plus") {
 
-    batting |>
-      filter(
-        Season == input$Season,
-        PA > 0) |>
-      group_by(Team) |>
-      summarise(
-        wRC_plus = mean(wRC_plus, na.rm = TRUE)
-      ) |>
-      ggplot(aes(x = reorder(Team, wRC_plus),
-                 y = wRC_plus)) +
-      geom_col(fill = "#013ca6") +
-      coord_flip() +
-      labs(
-        x = NULL,
-        y = "Team Avg wRC+",
-        title = paste(input$Season, "Team Offensive Production")
-      ) +
-      theme_minimal()
+      filtered_batting() |>
+        filter(PA > 0) |>
+        group_by(Team) |>
+        summarise(
+          wRC_plus = mean(wRC_plus, na.rm = TRUE)
+        ) |>
+        ggplot(aes(x = reorder(Team, wRC_plus),
+                   y = wRC_plus)) +
+        geom_col(fill = "#013ca6") +
+        coord_flip() +
+        labs(
+          x = NULL,
+          y = "Team Avg wRC+",
+          title = paste(input$Season, "Team Offensive Production")
+        ) +
+        theme_minimal()
     }
 
     else if(metric == "offensive_profile") {
 
 
-      batting |>
-        filter(
-          Season == input$Season,
-          PA > 0) |>
+      filtered_batting() |>
+        filter(PA > 0) |>
         group_by(Team) |>
         summarise(
           avg_ISO = mean(ISO, na.rm = TRUE),
@@ -819,10 +1162,8 @@ server <- function(input, output, session) {
     else if(metric == "pitching_profile") {
 
 
-      pitching |>
-        filter(
-          Season == input$Season,
-          IP > 0) |>
+      filtered_pitching() |>
+        filter(IP > 0) |>
         group_by(Team) |>
         summarise(
           avg_K_BB_pct = mean(K_BB_pct, na.rm = TRUE),
@@ -842,39 +1183,52 @@ server <- function(input, output, session) {
     }
   })
 
-#### DYNAMIC TABLE TITLES AND DESCRIPTIONS #####################################
+  #### DYNAMIC TABLE TITLES AND DESCRIPTIONS #####################################
 
   output$batting_title <- renderText({
 
     if (input$Team != "All") {
 
       paste(input$Season,
+            input$Conference,
             input$Team,
             "Batting Statistics (",
-            input$min_PA,
-            "+ PA)"
-            )
-
-    }
-
-    else {
-
-      paste(input$Season,
-            "ACC Batting Statistics (",
             input$min_PA,
             "+ PA)"
       )
 
     }
 
+    else if (input$Conference != "All") {
+
+      paste(input$Season,
+            input$Conference,
+            "Batting Statistics (",
+            input$min_PA,
+            "+ PA)"
+      )
+
+    }
+
+    else{
+
+      paste(
+        input$Season,
+        "Power Four Batting Statistics (",
+        input$min_PA,
+        "+ PA)"
+      )
+    }
+
   }
-)
+  )
 
   output$pitching_title <- renderText({
 
     if (input$Team != "All") {
 
       paste(input$Season,
+            input$Conference,
             input$Team,
             "Pitching Statistics (",
             input$min_IP,
@@ -883,10 +1237,20 @@ server <- function(input, output, session) {
 
     }
 
+    else if (input$Conference != "All") {
+
+      paste(input$Season,
+            input$Conference,
+            "Pitching Statistics (",
+            input$min_PA,
+            "+ PA)"
+      )
+    }
+
     else {
 
       paste(input$Season,
-            "ACC Pitching Statistics (",
+            "Power Four Pitching Statistics (",
             input$min_IP,
             "+ IP)"
       )
@@ -895,43 +1259,46 @@ server <- function(input, output, session) {
   }
   )
 
-    output$team_leader_title <- renderText({
+  output$team_leader_title <- renderText({
 
-      paste(input$Season,
-            "ACC Team Statistics Leaderboard"
-            )
+    paste(input$Season,
+          input$Conference,
+          "Team Statistics Leaderboard"
+    )
 
   }
   )
 
-    output$visualization_title <- renderText({
+  output$visualization_title <- renderText({
 
-      paste(input$Season,
-            "ACC Team Visualizations"
-            )
-    })
+    paste(input$Season,
+          input$Conference,
+          "Team Visualizations"
+    )
+  })
 
-    output$plot_description <- renderText({
+  output$plot_description <- renderText({
 
-      metric <- input$team_metric
+    metric <- input$team_metric
 
-      if(metric == "offensive_profile") {
+    if(metric == "offensive_profile") {
 
-        "Teams above the line are getting on base more through walks, hit by pitch, and singles
+      "Teams above the line are getting on base more through walks, hit by pitch, and singles
         relative to what their ISO would suggest, as doubles, triples, and home runs
         are weighted more heavily in ISO."
 
-      }
+    }
 
-      else if(metric == "pitching_profile") {
+    else if(metric == "pitching_profile") {
 
-        "The negative trend line shows that better strikeout-to-walk dominance (K-BB%)
+      "The negative trend line shows that better strikeout-to-walk dominance (K-BB%)
         leads to fewer runs than expected scored against the team (FIP).
         Teams below the trend line have better-than-expected run prevention given their strikeout and walk profile."
 
-      }
+    }
 
-    })
+  })
 }
 
 shinyApp(ui, server)
+
