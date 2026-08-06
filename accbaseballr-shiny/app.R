@@ -264,6 +264,9 @@ server <- function(input, output, session) {
 
     reactable(batting_data(),
               columns = list(
+                Name = colDef(
+                  sticky = "left"
+                ),
                 bats = colDef(
                   name = "Bats"
                 ),
@@ -328,6 +331,9 @@ server <- function(input, output, session) {
 
     reactable(pitching_data(),
               columns = list(
+                Name = colDef(
+                  sticky = "left"
+                ),
                 throws = colDef(
                   name = "Throws"
                 ),
@@ -451,6 +457,9 @@ server <- function(input, output, session) {
       ) |>
       reactable(
         columns = list(
+          Name = colDef(
+            sticky = "left"
+          ),
           wRC_plus = colDef(
             name = "wRC+",
             format = colFormat(digits = 3)
@@ -548,6 +557,9 @@ server <- function(input, output, session) {
       ) |>
       reactable(
         columns = list(
+          Name = colDef(
+            sticky = "left"
+          ),
           K_BB_pct = colDef(
             name = "K-BB%",
             format = colFormat(digits = 3)
