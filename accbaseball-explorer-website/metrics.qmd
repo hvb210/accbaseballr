@@ -1,6 +1,6 @@
 # Understanding the Metrics
 
-The ACC Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.
+The College Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.
 
 These metrics provide additional context by accounting for league environment, offensive value, and outcomes that are more directly controlled by the player.
 
