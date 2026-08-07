@@ -373,6 +373,7 @@ ui <- fluidPage(
 
 logos <- tibble(
   Team = c(
+    # ACC
     "Duke",
     "North Carolina",
     "Virginia",
@@ -390,6 +391,7 @@ logos <- tibble(
     "Wake Forest",
     "California",
     "Maryland",
+    # SEC
     "Georgia",
     "Alabama",
     "Texas",
@@ -408,13 +410,14 @@ logos <- tibble(
     "Vanderbilt"
   ),
   logo = c(
+    # ACC
     "www/duke_logo.png",
     "www/unc_logo.png",
     "www/uva_logo.png",
     "www/nd_logo.png",
     "www/vt_logo.png",
     "www/stanford_logo.png",
-    "www/bc_logo.png",
+    "www//bc_logo.png",
     "www/clemson_logo.png",
     "www/pitt_logo.png",
     "www/miami_logo.png",
@@ -425,6 +428,7 @@ logos <- tibble(
     "www/wake_logo.png",
     "www/cal_logo.png",
     "www/maryland_logo.png",
+    # SEC
     "www/georgia_logo.png",
     "www/alabama_logo.png",
     "www/texas_logo.png",
