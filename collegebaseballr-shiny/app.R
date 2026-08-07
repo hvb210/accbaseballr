@@ -1,4 +1,5 @@
 library(shiny)
+library(shinyWidgets)
 library(tidyverse)
 library(bslib)
 library(reactable)
@@ -165,6 +166,8 @@ college_pitching <- college_pitching |>
 college_pitching <- college_pitching |>
   select(-c(W, L, `W-L%`, G, GF, CG, SHO, SV, BK, WP, H9, HR9, BB9, SO9, `SO/W`, Notes, `Name-additional`))
 
+# creating this variable for checkbox selection in the UI
+all_conferences <- sort(unique(college_batting$Conference))
 
 ### UI BUILD ###################################################################
 
@@ -184,18 +187,25 @@ ui <- fluidPage(
 
     sidebar = sidebar(
 
-      # creating static sidebar drop down options
+      # creating checkbox options
 
-      selectInput(
-        "Conference",  # variable name in dataset
-        "Conference",  # label shown in app
-        choices = c("All", sort(unique(college_batting$Conference),
-                       decreasing = TRUE))
+      pickerInput(
+        inputId = "Conference", # dataset variable name
+        label = "Conference", # display name in app
+        choices = all_conferences, # list of all conferences
+        selected = all_conferences, # default selection of All
+        multiple = TRUE, #may select multiple conferences
+        options = list(
+          `actions-box` = TRUE, # adds 'select all' and 'deselect all' buttons
+          `selected-text-format` = "count > 3" # displays number selected for 4+
+        )
       ),
 
+      # creating sidebar drop down options
+
       selectInput(
-        "Season",  # variable name in dataset
-        "Season",  # label shown in app
+        "Season",
+        "Season",
         choices = sort(unique(college_batting$Season),
                        decreasing = TRUE)
       ),
@@ -279,8 +289,7 @@ ui <- fluidPage(
 
               reactableOutput("batter_profile"),
 
-              p("Percentiles are calculated within each season among conference players
-                and among Power Four conference players with
+              p("Percentiles are calculated within each season among selected conference players with
                 at least 50 plate appearances.")
             ),
 
@@ -295,8 +304,7 @@ ui <- fluidPage(
 
               reactableOutput("pitcher_profile"),
 
-              p("Percentiles are calculated within each season among conference players
-                and among Power Four conference players with
+              p("Percentiles are calculated within each season among selected conference players with
                 at least 50 innings pitched.")
             ),
 
@@ -439,34 +447,30 @@ logos <- tibble(
 
 server <- function(input, output, session) {
 
-  observeEvent(input$Conference, {
+  selected_conferences <- reactive({
 
-    if(input$Conference == "All") {
+    input$Conference
 
-      team_choices <- college_batting |>
-        pull(Team) |>
-        unique() |>
-        sort()
+  })
+  observe({
 
-    } else {
+    req(input$Conference)
 
-    # only shows teams that belong to selected conference
     team_choices <- college_batting |>
-      filter(Conference == input$Conference) |>
-      pull(Team) |>
-      unique() |>
-      sort()
-    }
+     filter(Conference %in% input$Conference) |>
+     pull(Team) |>
+     unique() |>
+     sort()
 
-    updateSelectInput(
+   updateSelectInput(
       session,
       "Team",
       choices = c("All", team_choices),
       selected = "All"
     )
-  }
 
-  )
+  })
+
 
   #### BATTING STATISTICS TABLE ##################################################
 
@@ -474,12 +478,10 @@ server <- function(input, output, session) {
 
     data <- college_batting |>
       filter(Season == input$Season,
-             PA >= input$min_PA)
+             PA >= input$min_PA,
+             Conference %in% selected_conferences()
+             )
 
-    if(input$Conference != "All") {
-      data <- data |>
-        filter(Conference == input$Conference)
-    }
 
     if(input$Team !="All") {
       data <- data |>
@@ -556,12 +558,10 @@ server <- function(input, output, session) {
 
     data <- college_pitching |>
       filter(Season == input$Season,
-             IP >= input$min_IP)
+             IP >= input$min_IP,
+             Conference %in% selected_conferences()
+             )
 
-    if (input$Conference != "All") {
-      data <- data |>
-        filter(Conference == input$Conference)
-    }
 
     if (input$Team != "All") {
       data <- data |>
@@ -629,13 +629,10 @@ server <- function(input, output, session) {
 
     batter_choices <- college_batting |>
       filter(
-        Season == input$Season
+        Season == input$Season,
+        Conference %in% selected_conferences()
       )
 
-    if(input$Conference != "All") {
-      batter_choices <- batter_choices |>
-        filter(Conference == input$Conference)
-    }
 
     if (input$Team != "All") {
       batter_choices <- batter_choices |>
@@ -655,13 +652,10 @@ server <- function(input, output, session) {
 
     pitcher_choices <- college_pitching |>
       filter(
-        Season == input$Season
+        Season == input$Season,
+        Conference %in% selected_conferences()
       )
 
-    if (input$Conference != "All") {
-      pitcher_choices <- pitcher_choices |>
-        filter(Conference == input$Conference)
-    }
 
     if (input$Team != "All") {
       pitcher_choices <- pitcher_choices |>
@@ -679,9 +673,11 @@ server <- function(input, output, session) {
   batter_profile_data <- reactive({
 
     batter_percentile <- college_batting |>
-      filter(PA >=50 ) |> # keeps percentile rankings more accurate
+      filter(PA >=50, # keeps percentile rankings more accurate
+             Conference %in% selected_conferences() # percentile calculated based on conferences selected
+             ) |>
       group_by(Season) |>
-      mutate( # calculate this before filter name so percentiles are for all conferences
+      mutate(
         wRC_plus_percentile = percent_rank(wRC_plus) * 100,
         BB_percentile = percent_rank(BB_pct) * 100,
         K_percentile = percent_rank(K_pct) * 100,
@@ -794,7 +790,10 @@ server <- function(input, output, session) {
   pitcher_profile_data <- reactive({
 
     pitcher_percentile <- college_pitching |>
-      filter(IP >= 50) |> # keeps percentile rankings more accurate
+      filter(
+        IP >= 50, # keeps percentile rankings more accurate
+        Conference %in% selected_conferences() # percentile calculated based on conferences selected
+        ) |>
       group_by(Season) |>
       mutate(
         K_BB_percentile = percent_rank(K_BB_pct) * 100,
@@ -888,13 +887,10 @@ server <- function(input, output, session) {
     #batting team averages
     batting_team <- college_batting |>
       filter(Season == input$Season,
-             PA > 0
+             PA > 0,
+             Conference %in% selected_conferences()
              )
 
-    if(input$Conference != "All") {
-      batting_team <- batting_team |>
-        filter(Conference == input$Conference)
-    }
 
     batting_team <- batting_team |>
       group_by(Conference, Team) |>
@@ -910,12 +906,10 @@ server <- function(input, output, session) {
     # pitching team averages
     pitching_team <- college_pitching |>
       filter(Season == input$Season,
-             IP > 0)
+             IP > 0,
+             Conference %in% selected_conferences()
+             )
 
-    if (input$Conference != "All") {
-      pitching_team <- pitching_team |>
-        filter(Conference == input$Conference)
-    }
 
     pitching_team <- pitching_team |>
       group_by(Conference, Team) |>
@@ -954,9 +948,6 @@ server <- function(input, output, session) {
                   sticky = "left",
                   width = 160
                 ),
-                Team = colDef(
-                  width = 140
-                ),
                 wRC_plus = colDef(
                   name = "Avg wRC+",
                   format = colFormat(digits = 3)
@@ -978,7 +969,8 @@ server <- function(input, output, session) {
                 ),
                 SO_bat = colDef(
                   name = "Avg Batting SO",
-                  format = colFormat(digits = 3)
+                  format = colFormat(digits = 3),
+                  width = 160
                 ),
                 total_HBP = colDef(
                   name = "Total HBP"
@@ -1001,7 +993,8 @@ server <- function(input, output, session) {
                 ),
                 SO_pitch = colDef(
                   name = "Avg Pitching SO",
-                  format = colFormat(digits = 3)
+                  format = colFormat(digits = 3),
+                  width = 160
                 )
               ),
 
@@ -1066,7 +1059,7 @@ server <- function(input, output, session) {
 
     filename = function() {
       paste0(
-        input$Conference,
+        paste(input$Conference, collapse = "_"),
         "_leader_",
         input$Season,
         ".csv"
@@ -1087,12 +1080,8 @@ server <- function(input, output, session) {
   filtered_batting <- reactive({
 
     data <- college_batting |>
-      filter(Season == input$Season)
-
-    if (input$Conference != "All") {
-      data <- data |>
-        filter(Conference == input$Conference)
-    }
+      filter(Season == input$Season,
+             Conference %in% selected_conferences())
 
     data
 
@@ -1101,12 +1090,9 @@ server <- function(input, output, session) {
   filtered_pitching <- reactive({
 
     data <- college_pitching |>
-      filter(Season == input$Season)
-
-    if (input$Conference != "All") {
-      data <- data |>
-        filter(Conference == input$Conference)
-    }
+      filter(Season == input$Season,
+             Conference %in% selected_conferences()
+             )
 
     data
 
@@ -1185,24 +1171,31 @@ server <- function(input, output, session) {
 
   #### DYNAMIC TABLE TITLES AND DESCRIPTIONS #####################################
 
+  conference_label <- reactive({
+
+    if ("All" %in% input$Conference) {
+      "All Conferences"
+    } else{
+      paste(input$Conference, collapse =", ")
+    }
+  })
+
   output$batting_title <- renderText({
 
     if (input$Team != "All") {
 
       paste(input$Season,
-            input$Conference,
+            conference_label(),
             input$Team,
             "Batting Statistics (",
             input$min_PA,
             "+ PA)"
       )
 
-    }
-
-    else if (input$Conference != "All") {
+    } else {
 
       paste(input$Season,
-            input$Conference,
+            conference_label(),
             "Batting Statistics (",
             input$min_PA,
             "+ PA)"
@@ -1210,25 +1203,14 @@ server <- function(input, output, session) {
 
     }
 
-    else{
-
-      paste(
-        input$Season,
-        "Power Four Batting Statistics (",
-        input$min_PA,
-        "+ PA)"
-      )
-    }
-
-  }
-  )
+  })
 
   output$pitching_title <- renderText({
 
     if (input$Team != "All") {
 
       paste(input$Season,
-            input$Conference,
+            conference_label(),
             input$Team,
             "Pitching Statistics (",
             input$min_IP,
@@ -1237,42 +1219,31 @@ server <- function(input, output, session) {
 
     }
 
-    else if (input$Conference != "All") {
-
-      paste(input$Season,
-            input$Conference,
-            "Pitching Statistics (",
-            input$min_PA,
-            "+ PA)"
-      )
-    }
-
     else {
 
       paste(input$Season,
-            "Power Four Pitching Statistics (",
+            conference_label(),
+            "Pitching Statistics (",
             input$min_IP,
             "+ IP)"
       )
 
     }
-  }
-  )
+  })
 
   output$team_leader_title <- renderText({
 
     paste(input$Season,
-          input$Conference,
+          conference_label(),
           "Team Statistics Leaderboard"
     )
 
-  }
-  )
+  })
 
   output$visualization_title <- renderText({
 
     paste(input$Season,
-          input$Conference,
+          conference_label(),
           "Team Visualizations"
     )
   })
