@@ -5,7 +5,7 @@ resources:
   - CNAME
 
 website:
-  title: "ACC Baseball Explorer"
+  title: "College Baseball Explorer"
   google-analytics: "G-73DDQNMS2L"
   page-footer:
     center: |
@@ -23,6 +23,8 @@ website:
         text: About
       - href: whats-new.qmd
         text: What's New
+      - href: indexACC.qmd
+        text: ACC Baseball Explorer (Archive)
 
 
     right:

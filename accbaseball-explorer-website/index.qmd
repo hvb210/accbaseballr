@@ -1,12 +1,12 @@
-# Advanced Analytics for ACC Baseball
+# Advanced Analytics for College Baseball
 
-Built with publicly available ACC baseball data and advanced sabermetric methodology using the `accbaseballr` R package.
+Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations.
 
-Explore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.
+Explore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.
 
-This project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.
+This project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.
 
-The **ACC Baseball Explorer** provides a centralized resource for analyzing conference performance from 2011-present using metrics including:
+The **College Baseball Explorer** provides a centralized resource for analyzing conference performance from 2011-present using metrics including:
 
 - **wRC+** — adjusted offensive production
 - **wOBA** — overall offensive value
@@ -16,13 +16,13 @@ The **ACC Baseball Explorer** provides a centralized resource for analyzing conf
 
 <div style="text-align: center;">
 
-[Launch the Explorer](https://hanabaskin.shinyapps.io/accbaseballr-shiny/){.btn .btn-primary .btn-lg target="_blank"}
+[Launch the Explorer](https://hanabaskin.shinyapps.io/collegebaseballr-shiny/){.btn .btn-primary .btn-lg target="_blank"}
 
 </div>
 
 ---
 
-## Explore ACC Baseball
+## Explore College Baseball
 
 ::: {.columns}
 
@@ -43,7 +43,7 @@ Analyze individual player performance across seasons with:
 
 ### Team Analysis
 
-Compare ACC teams using:
+Compare teams using:
 
 - Offensive profiles
 - Pitching profiles

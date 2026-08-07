@@ -3,7 +3,27 @@ title: "What's New"
 format: html
 ---
 
-Updates and improvements to the ACC Baseball Explorer.
+Updates and improvements to the Explorer.
+
+## August 2026
+
+**College Baseball Explorer Launch**
+
+BallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.
+
+The original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.
+
+**SEC Data Added**
+
+The College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.
+
+Users can now:
+
+- Explore conferences individually
+- Compare players across conferences
+- Analyze combined ACC and SEC leaderboards
+
+Conference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball.
 
 ## July 2026
 
@@ -54,6 +74,9 @@ The package was submitted to and accepted by CRAN, making it publicly available 
 
 ## Future Improvements
 
-Planned enhancements include:
+Development continues towards completion of Power Four conference coverage.
 
-Continued updates as new ACC baseball seasons become available
+Upcoming additions include:
+
+- Big 12 baseball data
+- Big Ten baseball data

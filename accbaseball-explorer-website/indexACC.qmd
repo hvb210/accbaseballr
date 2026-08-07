@@ -1,0 +1,63 @@
+# Advanced Analytics for ACC Baseball
+
+Built with publicly available ACC baseball data and advanced sabermetric methodology using the `accbaseballr` R package.
+
+Explore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.
+
+This project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.
+
+The **ACC Baseball Explorer** provides a centralized resource for analyzing conference performance from 2011-present using metrics including:
+
+- **wRC+** — adjusted offensive production
+- **wOBA** — overall offensive value
+- **ISO** — power production
+- **FIP** — fielding-independent pitching performance
+- **K-BB%** — strikeout-to-walk differential
+
+<div style="text-align: center;">
+
+[Launch the Explorer](https://hanabaskin.shinyapps.io/accbaseballr-shiny/){.btn .btn-primary .btn-lg target="_blank"}
+
+</div>
+
+---
+
+## Explore ACC Baseball
+
+::: {.columns}
+
+::: {.column}
+
+### Player Profiles
+
+Analyze individual player performance across seasons with:
+
+- Advanced statistics
+- Percentile rankings
+- Career trends
+- Qualified-season comparisons
+
+:::
+
+::: {.column}
+
+### Team Analysis
+
+Compare ACC teams using:
+
+- Offensive profiles
+- Pitching profiles
+- Conference rankings
+- Conference-level visualizations
+
+:::
+
+::: {.column}
+
+### Downloadable Data
+
+Download the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data.
+
+:::
+
+:::
