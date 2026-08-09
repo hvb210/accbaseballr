@@ -1,8 +1,13 @@
+---
+title: "College Baseball Explorer"
+description: "Explore college baseball statistics and analytics by season, conference, team, and player."
+---
+
 # Advanced Analytics for College Baseball
 
-Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations.
+The **College Baseball Explorer** is an interactive resource for exploring college baseball statistics and advanced analytics. Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations, the Explorer provides tools for analyzing player and team performance across seasons. 
 
-Explore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.
+Explore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present. 
 
 This project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.
 

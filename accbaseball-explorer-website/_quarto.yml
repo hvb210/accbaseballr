@@ -5,7 +5,10 @@ resources:
   - CNAME
 
 website:
-  title: "College Baseball Explorer"
+  title: "Ball Club Data"
+  description: "Interactive college baseball statistics and analytics by season,
+    conference, team, and player."
+  image: images/ballclubdata.png
   google-analytics: "G-73DDQNMS2L"
   page-footer:
     center: |
@@ -17,13 +20,13 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: metrics.qmd
+      - href: Metrics.qmd
         text: Metrics
-      - href: about.qmd
+      - href: About.qmd
         text: About
-      - href: whats-new.qmd
+      - href: Whats-New.qmd
         text: What's New
-      - href: indexACC.qmd
+      - href: Archive.qmd
         text: ACC Baseball Explorer (Archive)
 
 
@@ -35,7 +38,7 @@ website:
         href: https://cran.r-project.org/web/packages/accbaseballr/index.html
         target: _blank
       - text: Contribute
-        href: support.qmd
+        href: Contribute.qmd
 
 
 format:

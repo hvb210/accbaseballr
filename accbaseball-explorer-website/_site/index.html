@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="description" content="Explore college baseball statistics and analytics by season, conference, team, and player.">
 
-<title>College Baseball Explorer</title>
+<title>College Baseball Explorer – Ball Club Data</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -92,7 +93,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">College Baseball Explorer</span>
+    <span class="navbar-title">Ball Club Data</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -106,19 +107,19 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./metrics.html"> 
+    <a class="nav-link" href="./Metrics.html"> 
 <span class="menu-text">Metrics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="./About.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./whats-new.html"> 
+    <a class="nav-link" href="./Whats-New.html"> 
 <span class="menu-text">What’s New</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./indexACC.html"> 
+    <a class="nav-link" href="./Archive.html"> 
 <span class="menu-text">ACC Baseball Explorer (Archive)</span></a>
   </li>  
 </ul>
@@ -132,7 +133,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 <span class="menu-text">R package</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./support.html"> 
+    <a class="nav-link" href="./Contribute.html"> 
 <span class="menu-text">Contribute</span></a>
   </li>  
 </ul>
@@ -159,14 +160,35 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">College Baseball Explorer</h1>
+</div>
+
+<div>
+  <div class="description">
+    Explore college baseball statistics and analytics by season, conference, team, and player.
+  </div>
+</div>
 
 
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="advanced-analytics-for-college-baseball" class="level1">
 <h1>Advanced Analytics for College Baseball</h1>
-<p>Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations.</p>
+<p>The <strong>College Baseball Explorer</strong> is an interactive resource for exploring college baseball statistics and advanced analytics. Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations, the Explorer provides tools for analyzing player and team performance across seasons.</p>
 <p>Explore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.</p>
 <p>This project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.</p>
 <p>The <strong>College Baseball Explorer</strong> provides a centralized resource for analyzing conference performance from 2011-present using metrics including:</p>
@@ -292,7 +314,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ballclubdata\.com");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

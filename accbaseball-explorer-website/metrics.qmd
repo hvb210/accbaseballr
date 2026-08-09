@@ -56,7 +56,7 @@ $$
 where:
 
 - **SLG** = Slugging Percentage
-- **BA* = Batting Average
+- **BA** = Batting Average
 
 ### BABIP
 
