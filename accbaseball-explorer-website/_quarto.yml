@@ -3,6 +3,7 @@ project:
 
 resources:
   - CNAME
+  - images/ballclubdata.png
 
 website:
   title: "Ball Club Data"

@@ -1,152 +1,5 @@
 [
   {
-    "objectID": "whats-new.html",
-    "href": "whats-new.html",
-    "title": "What’s New",
-    "section": "",
-    "text": "Updates and improvements to the Explorer."
-  },
-  {
-    "objectID": "whats-new.html#august-2026",
-    "href": "whats-new.html#august-2026",
-    "title": "What’s New",
-    "section": "August 2026",
-    "text": "August 2026\nCollege Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
-  },
-  {
-    "objectID": "whats-new.html#july-2026",
-    "href": "whats-new.html#july-2026",
-    "title": "What’s New",
-    "section": "July 2026",
-    "text": "July 2026\nPlayer Profile Pages\nAdded individual player profile pages for both batters and pitchers.\nUsers can now explore:\n\nMulti-season performance histories\nAdvanced metrics including wRC+, wOBA, ISO, FIP, and K-BB%\nSeason-by-season percentile rankings\n\nPercentile rankings are calculated using season-specific ACC context, allowing player performance to be evaluated relative to peers from the same year.\nDownloadable Data\nAdded CSV downloads directly from the Explorer.\nUsers can now export:\n\nBatter statistics\nPitcher statistics\nConference leaderboard data\n\nThe downloadable files match the statistics displayed in the application and allow users to perform additional analysis outside of the Explorer.\nACC Baseball Explorer Launch\nThe initial release of the Explorer introduced interactive tools for analyzing ACC baseball performance, including:\n\nAdvanced batting metrics\nAdvanced pitching metrics\nTeam-level comparisons\nConference visualizations"
-  },
-  {
-    "objectID": "whats-new.html#may-2026",
-    "href": "whats-new.html#may-2026",
-    "title": "What’s New",
-    "section": "May 2026",
-    "text": "May 2026\naccbaseballr R Package Released\nCreated the accbaseballr R package to provide a standardized framework for analyzing ACC baseball statistics.\nThe package processes raw college baseball data and calculates advanced metrics including:\nwOBA wRC+ ISO FIP K-BB%\nThe package was submitted to and accepted by CRAN, making it publicly available to the R community."
-  },
-  {
-    "objectID": "whats-new.html#future-improvements",
-    "href": "whats-new.html#future-improvements",
-    "title": "What’s New",
-    "section": "Future Improvements",
-    "text": "Future Improvements\nDevelopment continues towards completion of Power Four conference coverage.\nUpcoming additions include:\n\nBig 12 baseball data\nBig Ten baseball data"
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About the Project",
-    "section": "",
-    "text": "The College Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.\nThis project applies similar approaches to collegiate baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods."
-  },
-  {
-    "objectID": "about.html#background",
-    "href": "about.html#background",
-    "title": "About the Project",
-    "section": "",
-    "text": "The College Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.\nThis project applies similar approaches to collegiate baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods."
-  },
-  {
-    "objectID": "about.html#data-source",
-    "href": "about.html#data-source",
-    "title": "About the Project",
-    "section": "Data Source",
-    "text": "Data Source\nThe College Baseball Explorer uses publicly available college baseball data enhanced with advanced sabermetric calculations dating back to 2011.\nAdvanced sabermetrics metrics include:\n\nwOBA\nwRC+\nISO\nK-BB%\nFIP\n\nThe package standardizes raw statistics, calculates league context, and creates a consistent framework for comparing players and teams across seasons."
-  },
-  {
-    "objectID": "about.html#technology",
-    "href": "about.html#technology",
-    "title": "About the Project",
-    "section": "Technology",
-    "text": "Technology\nThe College Baseball Explorer was built using:\n\nR for data processing and statistical calculations\ntidyverse for data manipulation\nShiny for the interactive web application\nreactable for dynamic player and team tables\nggplot2 for data visualization\nQuarto for this documentation website"
-  },
-  {
-    "objectID": "about.html#development",
-    "href": "about.html#development",
-    "title": "About the Project",
-    "section": "Development",
-    "text": "Development\nThis project was built as a way to explore the application of data analytics and statistical modeling within college baseball.\nThe goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance."
-  },
-  {
-    "objectID": "support.html",
-    "href": "support.html",
-    "title": "Support the Project",
-    "section": "",
-    "text": "Ball Club Data is an independent project that I develop and maintain in my spare time. Every dataset is carefully collected, cleaned, and maintained, and new features are continually being added to make college baseball statistics more accessible and insightful.\nThe site will always remain free to use. If you’ve found it valuable and would like to support its continued development, your contribution is greatly appreciated.\nYour support helps fund website hosting and allows me to continue expanding the platform with additional conferences, historical data, and new analytical tools."
-  },
-  {
-    "objectID": "support.html#contribute",
-    "href": "support.html#contribute",
-    "title": "Support the Project",
-    "section": "Contribute",
-    "text": "Contribute\nVenmo: @hvb210\n\nThank you for visiting Ball Club Data. Whether you contribute, share the site, or simply use it, I sincerely appreciate your support."
-  },
-  {
-    "objectID": "indexACC.html",
-    "href": "indexACC.html",
-    "title": "Advanced Analytics for ACC Baseball",
-    "section": "",
-    "text": "Built with publicly available ACC baseball data and advanced sabermetric methodology using the accbaseballr R package.\nExplore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe ACC Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
-    "objectID": "indexACC.html#explore-acc-baseball",
-    "href": "indexACC.html#explore-acc-baseball",
-    "title": "Advanced Analytics for ACC Baseball",
-    "section": "",
-    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "College Baseball Explorer",
-    "section": "",
-    "text": "The College Baseball Explorer is an interactive resource for exploring college baseball statistics and advanced analytics. Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations, the Explorer provides tools for analyzing player and team performance across seasons.\nExplore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe College Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
-    "objectID": "index.html#explore-college-baseball",
-    "href": "index.html#explore-college-baseball",
-    "title": "College Baseball Explorer",
-    "section": "",
-    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
-    "objectID": "metrics.html",
-    "href": "metrics.html",
-    "title": "Understanding the Metrics",
-    "section": "",
-    "text": "The College Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.\nThese metrics provide additional context by accounting for league environment, offensive value, and outcomes that are more directly controlled by the player.\n\n\n\n\n\nWeighted On-Base Average measures a hitter’s total offensive value per plate appearance by assigning specific run values to events like walks, singles, doubles, triples, and home runs.\n\\[\nwOBA = \\frac{0.69*BB + 0.72*HBP + 0.89*1B + 1.27*2B + 1.62*3B + 2.10* HR}{AB + BB + HBP + SF}\n\\] where:\n\nBB = Bases on Balls/Walks\nHBP = Times Hit by a Pitch\n1B = Singles hit\n2B = Doubles hit\n3B = Triples hit\nHR = Home Runs hit\nAB = At Bats\nSF = Sacrifice Flies\n\n\n\n\nWeighted Runs Created Plus measures a batter’s total offensive value and run creation per plate appearance, adjusted for league run environments.\n\\[\nwRC+ = \\left(\\frac{wOBA - wOBA_{league}}{scale} + 1 \\right) * 100\n\\] where:\n\nwOBAleague = league-average wOBA calculated from all player plate appearances during the season\nscale = wOBA scale factor used to normalize differences in offensive value (1.25)\n\nInterpretation\n\n100 = league average\n120 = 20% above league average\n80 = 20% below league average\n\nHigher values indicate stronger offensive performance.\n\n\n\nIsolated Power measures a batter’s raw power by calculating how many extra-base hits they average per at-bat.\n\\[\nSLG - BA\n\\] where:\n\nSLG = Slugging Percentage\nBA = Batting Average\n\n\n\n\nBatting Average on Balls in Play measures how often a batted ball becomes a hit while excluding home runs and strikeouts.\n\\[\nBABIP = \\frac{H - HR}{AB - SO - HR + SF}\n\\] where:\n\nH = Hits\nHR = Home Runs hit\nAB = At Bats\nSO = Strikeouts\nSF = Sacrifice Flies\n\n\n\n\n\n\n\n\nK-BB% measures a pitcher’s control by subtracting total walks (BB) from total strikeouts (SO).\n\\[\nK-BB% = K% - BB%\n\\] where:\n-K% = Strikeouts divided by batters faced -BB% = Bases on Balls/Walks divided by batters faced\n\n\n\nFielding Independent Pitching measures a pitcher’s true performance by focusing only on the events a pitcher has the most control over.\n\\[\nFIP = \\frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10\n\\] where:\n\nHR = Home Runs allowed\nBB = Bases on Balls/Walks\nHBP = Times Hit by a Pitch\nSO = Strikeouts\nIP = Innings Pitched\n\n3.10 is used as a constant to approximate a standard Earned Run Average (ERA) scale.\nInterpretation\nLower FIP values indicate better pitching performance."
-  },
-  {
-    "objectID": "metrics.html#batting",
-    "href": "metrics.html#batting",
-    "title": "Understanding the Metrics",
-    "section": "",
-    "text": "Weighted On-Base Average measures a hitter’s total offensive value per plate appearance by assigning specific run values to events like walks, singles, doubles, triples, and home runs.\n\\[\nwOBA = \\frac{0.69*BB + 0.72*HBP + 0.89*1B + 1.27*2B + 1.62*3B + 2.10* HR}{AB + BB + HBP + SF}\n\\] where:\n\nBB = Bases on Balls/Walks\nHBP = Times Hit by a Pitch\n1B = Singles hit\n2B = Doubles hit\n3B = Triples hit\nHR = Home Runs hit\nAB = At Bats\nSF = Sacrifice Flies\n\n\n\n\nWeighted Runs Created Plus measures a batter’s total offensive value and run creation per plate appearance, adjusted for league run environments.\n\\[\nwRC+ = \\left(\\frac{wOBA - wOBA_{league}}{scale} + 1 \\right) * 100\n\\] where:\n\nwOBAleague = league-average wOBA calculated from all player plate appearances during the season\nscale = wOBA scale factor used to normalize differences in offensive value (1.25)\n\nInterpretation\n\n100 = league average\n120 = 20% above league average\n80 = 20% below league average\n\nHigher values indicate stronger offensive performance.\n\n\n\nIsolated Power measures a batter’s raw power by calculating how many extra-base hits they average per at-bat.\n\\[\nSLG - BA\n\\] where:\n\nSLG = Slugging Percentage\nBA = Batting Average\n\n\n\n\nBatting Average on Balls in Play measures how often a batted ball becomes a hit while excluding home runs and strikeouts.\n\\[\nBABIP = \\frac{H - HR}{AB - SO - HR + SF}\n\\] where:\n\nH = Hits\nHR = Home Runs hit\nAB = At Bats\nSO = Strikeouts\nSF = Sacrifice Flies"
-  },
-  {
-    "objectID": "metrics.html#pitching",
-    "href": "metrics.html#pitching",
-    "title": "Understanding the Metrics",
-    "section": "",
-    "text": "K-BB% measures a pitcher’s control by subtracting total walks (BB) from total strikeouts (SO).\n\\[\nK-BB% = K% - BB%\n\\] where:\n-K% = Strikeouts divided by batters faced -BB% = Bases on Balls/Walks divided by batters faced\n\n\n\nFielding Independent Pitching measures a pitcher’s true performance by focusing only on the events a pitcher has the most control over.\n\\[\nFIP = \\frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10\n\\] where:\n\nHR = Home Runs allowed\nBB = Bases on Balls/Walks\nHBP = Times Hit by a Pitch\nSO = Strikeouts\nIP = Innings Pitched\n\n3.10 is used as a constant to approximate a standard Earned Run Average (ERA) scale.\nInterpretation\nLower FIP values indicate better pitching performance."
-  },
-  {
-    "objectID": "archive.html",
-    "href": "archive.html",
-    "title": "Advanced Analytics for ACC Baseball",
-    "section": "",
-    "text": "Built with publicly available ACC baseball data and advanced sabermetric methodology using the accbaseballr R package.\nExplore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe ACC Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
-    "objectID": "archive.html#explore-acc-baseball",
-    "href": "archive.html#explore-acc-baseball",
-    "title": "Advanced Analytics for ACC Baseball",
-    "section": "",
-    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
-  },
-  {
     "objectID": "Whats-New.html",
     "href": "Whats-New.html",
     "title": "What’s New",
@@ -217,6 +70,20 @@
     "text": "Development\nThis project was built as a way to explore the application of data analytics and statistical modeling within college baseball.\nThe goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance."
   },
   {
+    "objectID": "Archive.html",
+    "href": "Archive.html",
+    "title": "Advanced Analytics for ACC Baseball",
+    "section": "",
+    "text": "Built with publicly available ACC baseball data and advanced sabermetric methodology using the accbaseballr R package.\nExplore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe ACC Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
+  },
+  {
+    "objectID": "Archive.html#explore-acc-baseball",
+    "href": "Archive.html#explore-acc-baseball",
+    "title": "Advanced Analytics for ACC Baseball",
+    "section": "",
+    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
+  },
+  {
     "objectID": "Contribute.html",
     "href": "Contribute.html",
     "title": "Support the Project",
@@ -231,18 +98,18 @@
     "text": "Contribute\nVenmo: @hvb210\n\nThank you for visiting Ball Club Data. Whether you contribute, share the site, or simply use it, I sincerely appreciate your support."
   },
   {
-    "objectID": "Archive.html",
-    "href": "Archive.html",
-    "title": "Advanced Analytics for ACC Baseball",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ball Club Data",
     "section": "",
-    "text": "Built with publicly available ACC baseball data and advanced sabermetric methodology using the accbaseballr R package.\nExplore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe ACC Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
+    "text": "The College Baseball Explorer is an interactive resource for exploring college baseball statistics and advanced analytics. Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations, the Explorer provides tools for analyzing player and team performance across seasons.\nExplore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe College Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
   {
-    "objectID": "Archive.html#explore-acc-baseball",
-    "href": "Archive.html#explore-acc-baseball",
-    "title": "Advanced Analytics for ACC Baseball",
+    "objectID": "index.html#explore-college-baseball",
+    "href": "index.html#explore-college-baseball",
+    "title": "Ball Club Data",
     "section": "",
-    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
+    "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
   {
     "objectID": "Metrics.html",

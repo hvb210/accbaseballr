@@ -1,5 +1,6 @@
 library(shiny)
 library(shinyWidgets)
+library(shinycssloaders)
 library(tidyverse)
 library(bslib)
 library(reactable)
@@ -262,14 +263,20 @@ ui <- fluidPage(
           "Batting",
           h3(textOutput("batting_title")),
           downloadButton("download_batting", "Download CSV"),
-          reactableOutput("batting_table")
+          withSpinner(
+            reactableOutput("batting_table"),
+            type = 1
+          )
         ),
 
         nav_panel(
           "Pitching",
           h3(textOutput("pitching_title")),
           downloadButton("download_pitching", "Download CSV"),
-          reactableOutput("pitching_table")
+          withSpinner(
+            reactableOutput("pitching_table"),
+            type = 1
+          )
         ),
 
         nav_panel(
@@ -287,7 +294,10 @@ ui <- fluidPage(
                 choices = NULL # this gets populated with updateSelectInput()
               ),
 
-              reactableOutput("batter_profile"),
+              withSpinner(
+                reactableOutput("batter_profile"),
+                type = 1
+                ),
 
               p("Percentiles are calculated within each season among selected conference players with
                 at least 50 plate appearances.")
@@ -302,7 +312,10 @@ ui <- fluidPage(
                 choices = NULL # this gets populated with updateSelectInput()
               ),
 
-              reactableOutput("pitcher_profile"),
+              withSpinner(
+                reactableOutput("pitcher_profile"),
+                type = 1
+                ),
 
               p("Percentiles are calculated within each season among selected conference players with
                 at least 50 innings pitched.")
@@ -315,7 +328,10 @@ ui <- fluidPage(
           "Conference Leaderboard",
           h3(textOutput("team_leader_title")),
           downloadButton("download_leader", "Download CSV"),
-          reactableOutput("team_leader_table")
+          withSpinner(
+            reactableOutput("team_leader_table"),
+            type = 1
+          )
         ),
 
         nav_panel(
@@ -332,8 +348,11 @@ ui <- fluidPage(
                 "wOBA vs ISO" = "offensive_profile",
                 "FIP vs K-BB%" = "pitching_profile")
             ),
-            plotOutput("team_plot",
-                       height = "500px"), # keeps text from overlapping plot
+            withSpinner(
+              plotOutput("team_plot",
+                       height = "500px"),
+              type = 1
+              ), # keeps text from overlapping plot
             textOutput("plot_description")
           )
         ),
@@ -344,7 +363,7 @@ ui <- fluidPage(
           h3("About the College Baseball Explorer"),
           p("This app explores historical Power Four baseball performance using data curated from Sports Reference
             and enhanced with advanced sabermetric calculations."),
-          p("The dataset includes player-level batting and pitching statistics from ACC, SEC, Big 12, and Big Ten baseball seasons from 2011-present."),
+          p("The dataset includes player-level batting and pitching statistics from ACC and SEC baseball seasons from 2011-present. (Big 12 and Big Ten coming soon)"),
           h4("Batting Metrics"),
           p("wOBA (weighted On-Base Average) measures a hitter’s total offensive value per plate appearance using the following weights
           for different offensive outcomes: 0.69 (BB), 0.72 (HBP), 0.89 (1B), 1.27 (2B), 1.62 (3B), and 2.10 (HR)."),

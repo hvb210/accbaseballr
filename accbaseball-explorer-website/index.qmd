@@ -1,6 +1,7 @@
 ---
-title: "College Baseball Explorer"
-description: "Explore college baseball statistics and analytics by season, conference, team, and player."
+title: "Ball Club Data"
+description: "Interactive college baseball statistics and analytics by season, conference, team, and player."
+image: images/ballclubdata.png
 ---
 
 # Advanced Analytics for College Baseball
