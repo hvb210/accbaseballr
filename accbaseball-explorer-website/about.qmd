@@ -53,7 +53,7 @@ I mention the plumbing because it matters. Anyone can post a chart. Building som
 
 I'm Hana Baskin. I came to baseball analytics from the classroom.
 
-Teaching turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It's getting someone who doesn't care about your model to understand what it means and act on it. That is the entire job of a teacher, and it's the skill I lean on most here. It's why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you're actually looking at.
+Thirteen years of teaching high school math turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It's getting someone who doesn't care about your model to understand what it means and act on it. That is the entire job of a teacher, and it's the skill I lean on most here. It's why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you're actually looking at.
 
 The rest came from coursework through a Master's in Data Analytics and also what I taught myself: R, statistical modeling, package development, web deployment. This site is the result. The reason it exists is that building the thing is how I learned to build the thing.
 
