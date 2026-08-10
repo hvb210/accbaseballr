@@ -363,7 +363,7 @@ ui <- fluidPage(
           h3("About the College Baseball Explorer"),
           p("This app explores historical Power Four baseball performance using data curated from Sports Reference
             and enhanced with advanced sabermetric calculations."),
-          p("The dataset includes player-level batting and pitching statistics from ACC and SEC baseball seasons from 2011-present. (Big 12 and Big Ten coming soon)"),
+          p("The dataset includes player-level batting and pitching statistics from ACC, SEC, and Big 12 baseball seasons from 2011-present. (Big Ten coming soon)"),
           h4("Batting Metrics"),
           p("wOBA (weighted On-Base Average) measures a hitter’s total offensive value per plate appearance using the following weights
           for different offensive outcomes: 0.69 (BB), 0.72 (HBP), 0.89 (1B), 1.27 (2B), 1.62 (3B), and 2.10 (HR)."),
@@ -413,20 +413,35 @@ logos <- tibble(
     # SEC
     "Georgia",
     "Alabama",
-    "Texas",
+    "Texas", # also in Big 12
     "LSU",
     "Arkansas",
-    "Texas A&M",
+    "Texas A&M", # also in Big 12
     "Auburn",
     "Mississippi State",
     "Florida",
-    "Oklahoma",
+    "Oklahoma", # also Big 12
     "Tennessee",
     "Kentucky",
     "Ole Miss",
     "South Carolina",
-    "Missouri",
-    "Vanderbilt"
+    "Missouri", # also Big 12
+    "Vanderbilt",
+    # Big 12
+    "West Virginia",
+    "Central Florida",
+    "Kansas",
+    "Baylor",
+    "Arizona State",
+    "Oklahoma State",
+    "Kansas State",
+    "Cincinnati",
+    "TCU",
+    "Texas Tech",
+    "Utah",
+    "BYU",
+    "Houston",
+    "Arizona"
   ),
   logo = c(
     # ACC
@@ -463,7 +478,22 @@ logos <- tibble(
     "www/ole_miss_logo.png",
     "www/south_carolina_logo.png",
     "www/missouri_logo.png",
-    "www/vanderbilt_logo.png"
+    "www/vanderbilt_logo.png",
+    # Big 12
+    "www/west_virginia_logo.png",
+    "www/ucf_logo.png",
+    "www/kansas_logo.png",
+    "www/baylor_logo.png",
+    "www/arizona_state_logo.png",
+    "www/oklahoma_state_logo.png",
+    "www/kansas_state_logo.png",
+    "www/cincinnati_logo.png",
+    "www/tcu_logo.png",
+    "www/texas_tech_logo.png",
+    "www/utah_logo.png",
+    "www/byu_logo.png",
+    "www/houston_logo.png",
+    "www/arizona_logo.png"
   )
 
 )
@@ -477,10 +507,11 @@ server <- function(input, output, session) {
   })
   observe({
 
-    req(input$Conference)
+    req(input$Conference, input$Season)
 
     team_choices <- college_batting |>
-     filter(Conference %in% input$Conference) |>
+     filter(Conference %in% input$Conference, # only teams in that conference and season will display
+            Season %in% input$Season) |>
      pull(Team) |>
      unique() |>
      sort()

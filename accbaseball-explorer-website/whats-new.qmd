@@ -1,15 +1,14 @@
 ---
 title: "What's New"
+description: See what's new at Ball Club Data, including recent updates, new college baseball data, analytics, features, and improvements.
 include-in-header:
   text: |
     <meta name="description" content="See what's new at Ball Club Data, including recent updates, new college baseball data, analytics, features, and improvements.">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="What's New | Ball Club Data">
-    <meta name="twitter:description" content="See what's new at Ball Club Data, including recent updates, new college baseball data, analytics, features, and improvementsr.">
+    <meta name="twitter:description" content="See what's new at Ball Club Data, including recent updates, new college baseball data, analytics, features, and improvements.">
     <meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
 ---
-
-Updates and improvements to the Explorer.
 
 ## August 2026
 

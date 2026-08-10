@@ -6,3 +6,13 @@
   margin: 0 0 20px 30px;
   border-radius: 8px;
 }
+
+@media (max-width: 600px) {
+  .about-photo {
+    float: none;
+    display: block;
+    width: 180px;
+    max-width: 60%;
+    margin: 0 auto 1.5rem auto;
+  }
+}

@@ -1,5 +1,6 @@
 ---
 title: College Baseball Metrics
+description: Learn how Ball Club Data calculates and interprets advanced college baseball statistics and analytics.
 include-in-header:
   text: |
     <meta name="description" content="Learn how Ball Club Data calculates and interprets advanced college baseball statistics and analytics.">

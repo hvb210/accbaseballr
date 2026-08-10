@@ -1,4 +1,6 @@
 ---
+title: "Archive"
+description: Explore historical ACC college baseball statistics and advanced analytics by season, team, conference, and player.
 include-in-header:
   text: |
     <meta name="description" content="Explore historical ACC college baseball statistics and advanced analytics by season, team, conference, and player.">

@@ -4,14 +4,14 @@
     "href": "whats-new.html",
     "title": "What’s New",
     "section": "",
-    "text": "Updates and improvements to the Explorer."
+    "text": "College Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
   },
   {
     "objectID": "whats-new.html#august-2026",
     "href": "whats-new.html#august-2026",
     "title": "What’s New",
-    "section": "August 2026",
-    "text": "August 2026\nCollege Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
+    "section": "",
+    "text": "College Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
   },
   {
     "objectID": "whats-new.html#july-2026",
@@ -67,7 +67,7 @@
     "href": "about.html#about-me",
     "title": "About the Project",
     "section": "About Me",
-    "text": "About Me\n\nI’m Hana Baskin. I came to baseball analytics from the classroom.\nTeaching turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It’s getting someone who doesn’t care about your model to understand what it means and act on it. That is the entire job of a teacher, and it’s the skill I lean on most here. It’s why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you’re actually looking at.\nThe rest came from coursework through a Master’s in Data Analytics and also what I taught myself: R, statistical modeling, package development, web deployment. This site is the result. The reason it exists is that building the thing is how I learned to build the thing.\nI’m currently looking for analytics work in baseball with a college program, a professional club, or an organization working with sports data. If that’s you, I’d genuinely like to talk.\nGet in touch: hana.baskin@gmail.com · LinkedIn"
+    "text": "About Me\n\nI’m Hana Baskin. I came to baseball analytics from the classroom.\nThirteen years of teaching high school math turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It’s getting someone who doesn’t care about your model to understand what it means and act on it. That is the entire job of a teacher, and it’s the skill I lean on most here. It’s why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you’re actually looking at.\nThe rest came from coursework through a Master’s in Data Analytics and also what I taught myself: R, statistical modeling, package development, web deployment. This site is the result. The reason it exists is that building the thing is how I learned to build the thing.\nI’m currently looking for analytics work in baseball with a college program, a professional club, or an organization working with sports data. If that’s you, I’d genuinely like to talk.\nGet in touch: hana.baskin@gmail.com · LinkedIn"
   },
   {
     "objectID": "about.html#corrections-and-requests",
@@ -86,14 +86,14 @@
   {
     "objectID": "archive.html",
     "href": "archive.html",
-    "title": "Advanced Analytics for ACC Baseball",
+    "title": "Archive",
     "section": "",
     "text": "Built with publicly available ACC baseball data and advanced sabermetric methodology using the accbaseballr R package.\nExplore ACC baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the ACC Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe ACC Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
   {
     "objectID": "archive.html#explore-acc-baseball",
     "href": "archive.html#explore-acc-baseball",
-    "title": "Advanced Analytics for ACC Baseball",
+    "title": "Archive",
     "section": "",
     "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
