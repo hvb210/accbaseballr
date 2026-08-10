@@ -22,13 +22,13 @@ website:
     left:
       - href: index.qmd
         text: Home
-      - href: Metrics.qmd
+      - href: metrics.qmd
         text: Metrics
-      - href: About.qmd
+      - href: about.qmd
         text: About
-      - href: Whats-New.qmd
+      - href: whats-new.qmd
         text: What's New
-      - href: Archive.qmd
+      - href: archive.qmd
         text: ACC Baseball Explorer (Archive)
 
 
