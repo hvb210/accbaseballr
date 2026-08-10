@@ -9,7 +9,8 @@ website:
   title: "Ball Club Data"
   description: "Interactive college baseball statistics and analytics by season,
     conference, team, and player."
-  image: images/ballclubdata.png
+  open-graph:
+    image: images/ballclubdata.png
   google-analytics: "G-73DDQNMS2L"
   page-footer:
     center: |
