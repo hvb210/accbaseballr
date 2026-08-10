@@ -100,14 +100,14 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "College Baseball Explorer",
+    "title": "Ball Club Data",
     "section": "",
     "text": "The College Baseball Explorer is an interactive resource for exploring college baseball statistics and advanced analytics. Built with publicly available college baseball data curated from Sports Reference and enhanced with advanced sabermetric calculations, the Explorer provides tools for analyzing player and team performance across seasons.\nExplore college baseball performance through interactive visualizations, advanced metrics, percentile rankings, and downloadable data spanning seasons from 2011 to the present.\nThis project was created to make advanced college baseball analytics more accessible. By providing transparent methodology, interactive tools, and freely available data, the College Baseball Explorer helps fans, analysts, coaches, and researchers better understand player and team performance.\nThe College Baseball Explorer provides a centralized resource for analyzing conference performance from 2011-present using metrics including:\n\nwRC+ — adjusted offensive production\nwOBA — overall offensive value\nISO — power production\nFIP — fielding-independent pitching performance\nK-BB% — strikeout-to-walk differential\n\n\nLaunch the Explorer\n\n\n\n\n\n\n\n\nAnalyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
   {
     "objectID": "index.html#explore-college-baseball",
     "href": "index.html#explore-college-baseball",
-    "title": "College Baseball Explorer",
+    "title": "Ball Club Data",
     "section": "",
     "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
