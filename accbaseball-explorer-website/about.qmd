@@ -2,6 +2,7 @@
 title: "About the Project"
 ---
 
+
 Ball Club Data is an independent college baseball analytics project. It brings the metrics that have been standard in professional baseball for two decades (wOBA, wRC+, ISO, FIP, K-BB%) to a level of the sport where they are still surprisingly hard to find.
 
 Everything here is free, the methodology is published, and the underlying data is downloadable. It is built and maintained by one person: me.
