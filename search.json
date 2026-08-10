@@ -4,14 +4,14 @@
     "href": "whats-new.html",
     "title": "What’s New",
     "section": "",
-    "text": "College Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
+    "text": "College Baseball Explorer Expansion\nThe College Baseball Explorer continues to expand beyond its ACC roots, bringing together data from multiple conferences into a broader college baseball analytics experience.\nCollege Baseball Explorer Launch\nBall Club Data expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer provides a broader view of college baseball analytics. The explorer allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data alongside the existing ACC data.\nUsers can now:\nExplore conferences individually Compare players across conferences Analyze combined ACC and SEC leaderboards\nBig 12 Data Added\nThe College Baseball Explorer now includes Big 12 baseball data alongside the existing ACC and SEC data.\nWith the addition of the Big 12, users can now explore three major conferences within a single analytics platform, with conference filters allowing them to switch between conference-specific and broader comparisons."
   },
   {
     "objectID": "whats-new.html#august-2026",
     "href": "whats-new.html#august-2026",
     "title": "What’s New",
     "section": "",
-    "text": "College Baseball Explorer Launch\nBallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.\nUsers can now:\n\nExplore conferences individually\nCompare players across conferences\nAnalyze combined ACC and SEC leaderboards\n\nConference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball."
+    "text": "College Baseball Explorer Expansion\nThe College Baseball Explorer continues to expand beyond its ACC roots, bringing together data from multiple conferences into a broader college baseball analytics experience.\nCollege Baseball Explorer Launch\nBall Club Data expanded beyond its ACC roots with the launch of the College Baseball Explorer.\nThe original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer provides a broader view of college baseball analytics. The explorer allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.\nSEC Data Added\nThe College Baseball Explorer now includes SEC baseball data alongside the existing ACC data.\nUsers can now:\nExplore conferences individually Compare players across conferences Analyze combined ACC and SEC leaderboards\nBig 12 Data Added\nThe College Baseball Explorer now includes Big 12 baseball data alongside the existing ACC and SEC data.\nWith the addition of the Big 12, users can now explore three major conferences within a single analytics platform, with conference filters allowing them to switch between conference-specific and broader comparisons."
   },
   {
     "objectID": "whats-new.html#july-2026",
@@ -98,15 +98,15 @@
     "text": "Analyze individual player performance across seasons with:\n\nAdvanced statistics\nPercentile rankings\nCareer trends\nQualified-season comparisons\n\n\n\n\n\nCompare ACC teams using:\n\nOffensive profiles\nPitching profiles\nConference rankings\nConference-level visualizations\n\n\n\n\n\nDownload the statistics displayed in the Explorer as CSV files, including player batting tables, pitching tables, and conference leaderboard data."
   },
   {
-    "objectID": "Contribute.html",
-    "href": "Contribute.html",
+    "objectID": "contribute.html",
+    "href": "contribute.html",
     "title": "Support the Project",
     "section": "",
     "text": "Ball Club Data is an independent project that I develop and maintain in my spare time. Every dataset is carefully collected, cleaned, and maintained, and new features are continually being added to make college baseball statistics more accessible and insightful.\nThe site will always remain free to use. If you’ve found it valuable and would like to support its continued development, your contribution is greatly appreciated.\nYour support helps fund website hosting and allows me to continue expanding the platform with additional conferences, historical data, and new analytical tools."
   },
   {
-    "objectID": "Contribute.html#contribute",
-    "href": "Contribute.html#contribute",
+    "objectID": "contribute.html#contribute",
+    "href": "contribute.html#contribute",
     "title": "Support the Project",
     "section": "Contribute",
     "text": "Contribute\nVenmo: @hvb210\n\nThank you for visiting Ball Club Data. Whether you contribute, share the site, or simply use it, I sincerely appreciate your support."
