@@ -32,7 +32,7 @@
     "href": "whats-new.html#future-improvements",
     "title": "What’s New",
     "section": "Future Improvements",
-    "text": "Future Improvements\nDevelopment continues towards completion of Power Four conference coverage.\nUpcoming additions include:\n\nBig 12 baseball data\nBig Ten baseball data"
+    "text": "Future Improvements\nDevelopment continues towards completion of Power Four conference coverage.\nUpcoming additions include:\n\nBig Ten baseball data"
   },
   {
     "objectID": "about.html",
@@ -73,8 +73,8 @@
     "objectID": "about.html#corrections-and-requests",
     "href": "about.html#corrections-and-requests",
     "title": "About the Project",
-    "section": "Corrections and requests",
-    "text": "Corrections and requests\nIf you find an error in the data, I want to know about it. If there’s a metric, conference, or view you wish existed here, tell me.\nBug reports are welcome on GitHub Issues; everything else, just email me."
+    "section": "Corrections and Requests",
+    "text": "Corrections and Requests\nIf you find an error in the data, I want to know about it. If there’s a metric, conference, or view you wish existed here, tell me.\nBug reports are welcome on GitHub Issues; everything else, just email me."
   },
   {
     "objectID": "about.html#support",
