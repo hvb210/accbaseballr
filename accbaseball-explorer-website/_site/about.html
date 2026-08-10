@@ -82,6 +82,12 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 
 
 <link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="About the Project – Ball Club Data">
+<meta property="og:description" content="Interactive college baseball statistics and analytics by season, conference, team, and player.">
+<meta property="og:image" content="https://ballclubdata.com/images/ballclubdata.png">
+<meta property="og:site_name" content="Ball Club Data">
+<meta property="og:image:height" content="800">
+<meta property="og:image:width" content="1000">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -151,10 +157,12 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background" id="toc-background" class="nav-link active" data-scroll-target="#background">Background</a></li>
-  <li><a href="#data-source" id="toc-data-source" class="nav-link" data-scroll-target="#data-source">Data Source</a></li>
-  <li><a href="#technology" id="toc-technology" class="nav-link" data-scroll-target="#technology">Technology</a></li>
-  <li><a href="#development" id="toc-development" class="nav-link" data-scroll-target="#development">Development</a></li>
+  <li><a href="#why-this-exists" id="toc-why-this-exists" class="nav-link active" data-scroll-target="#why-this-exists">Why This Exists</a></li>
+  <li><a href="#what-you-can-do-here" id="toc-what-you-can-do-here" class="nav-link" data-scroll-target="#what-you-can-do-here">What You Can Do Here</a></li>
+  <li><a href="#how-its-built" id="toc-how-its-built" class="nav-link" data-scroll-target="#how-its-built">How It’s Built</a></li>
+  <li><a href="#about-me" id="toc-about-me" class="nav-link" data-scroll-target="#about-me">About Me</a></li>
+  <li><a href="#corrections-and-requests" id="toc-corrections-and-requests" class="nav-link" data-scroll-target="#corrections-and-requests">Corrections and requests</a></li>
+  <li><a href="#support" id="toc-support" class="nav-link" data-scroll-target="#support">Support</a></li>
   </ul>
 </nav>
     </div>
@@ -180,40 +188,47 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </header>
 
 
-<section id="background" class="level2">
-<h2 class="anchored" data-anchor-id="background">Background</h2>
-<p>The College Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.</p>
-<p>This project applies similar approaches to collegiate baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods.</p>
+<p>Ball Club Data is an independent college baseball analytics project. It brings the metrics that have been standard in professional baseball for two decades (wOBA, wRC+, ISO, FIP, K-BB%) to a level of the sport where they are still surprisingly hard to find.</p>
+<p>Everything here is free, the methodology is published, and the underlying data is downloadable. It is built and maintained by one person: me.</p>
+<section id="why-this-exists" class="level2">
+<h2 class="anchored" data-anchor-id="why-this-exists">Why This Exists</h2>
+<p>College baseball generates an enormous amount of data, and box scores are publicly available almost everywhere. The challenge is turning that raw information into objective measures of player and team performance. The numbers needed to make meaningful comparisons are often scattered across different pages, sources, and seasons, making it difficult to put players or teams on the same footing, especially when they come from different conferences.</p>
+<p>A .320 hitter in the SEC and a .320 hitter in a weaker conference are not the same player. There has been no easy, free way to see how a given hitter or pitcher actually stacks up against their peers, across seasons, on a rate basis, with the arithmetic shown.</p>
+<p>That is the gap this project fills. Not a proprietary black box and not a paywall. It’s a working tool with the formulas printed on the page next to it.</p>
 </section>
-<section id="data-source" class="level2">
-<h2 class="anchored" data-anchor-id="data-source">Data Source</h2>
-<p>The College Baseball Explorer uses publicly available college baseball data enhanced with advanced sabermetric calculations dating back to 2011.</p>
-<p>Advanced sabermetrics metrics include:</p>
-<ul>
-<li>wOBA</li>
-<li>wRC+</li>
-<li>ISO</li>
-<li>K-BB%</li>
-<li>FIP</li>
-</ul>
-<p>The package standardizes raw statistics, calculates league context, and creates a consistent framework for comparing players and teams across seasons.</p>
+<section id="what-you-can-do-here" class="level2">
+<h2 class="anchored" data-anchor-id="what-you-can-do-here">What You Can Do Here</h2>
+<p><strong>Batting and pitching leaderboards</strong>: Filter by conference, season, team, and minimum playing time. Sort any column. Filter within any column. Download the result as a CSV.</p>
+<p><strong>Player profiles</strong>: Career histories with percentile rankings, so you can see not just what a player did but where that performance sits relative to everyone else who qualified that season.</p>
+<p><strong>Conference leaderboards and visualizations</strong>: Team-level aggregates, plus charts that put the whole conference on one screen, including a wOBA-versus-ISO view that separates teams getting on base through contact and patience from teams doing it through power.</p>
+<p>Every table is exportable. The pipeline that produces it is open source.</p>
+<p>Coverage currently spans the ACC and SEC, 2011 through the most recent completed season. Big 12 and Big Ten data are in progress. The original ACC-only version of this tool remains available in the archive.</p>
 </section>
-<section id="technology" class="level2">
-<h2 class="anchored" data-anchor-id="technology">Technology</h2>
-<p>The College Baseball Explorer was built using:</p>
-<ul>
-<li><strong>R</strong> for data processing and statistical calculations</li>
-<li><strong>tidyverse</strong> for data manipulation</li>
-<li><strong>Shiny</strong> for the interactive web application</li>
-<li><strong>reactable</strong> for dynamic player and team tables</li>
-<li><strong>ggplot2</strong> for data visualization</li>
-<li><strong>Quarto</strong> for this documentation website</li>
-</ul>
+<section id="how-its-built" class="level2">
+<h2 class="anchored" data-anchor-id="how-its-built">How It’s Built</h2>
+<p>The data is sourced from Sports Reference, then cleaned, standardized, and extended with calculated advanced metrics through a pipeline I wrote in R.</p>
+<p>That pipeline is not just a pile of local scripts. The ACC data is packaged as accbaseballr, an R package published on CRAN, so anyone can install it and work with college baseball data directly:</p>
+<p>install.packages(“accbaseballr”)</p>
+<p>The rest of the stack is R end to end: tidyverse for data processing, Shiny and reactable for the interactive explorer, ggplot2 for the visualizations, and Quarto for this site. The full source lives on GitHub under an MIT license.</p>
+<p>I mention the plumbing because it matters. Anyone can post a chart. Building something that updates, holds up under scrutiny, survives CRAN review, and can be independently verified by a stranger is a different exercise.</p>
 </section>
-<section id="development" class="level2">
-<h2 class="anchored" data-anchor-id="development">Development</h2>
-<p>This project was built as a way to explore the application of data analytics and statistical modeling within college baseball.</p>
-<p>The goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance.</p>
+<section id="about-me" class="level2">
+<h2 class="anchored" data-anchor-id="about-me">About Me</h2>
+<p><img src="images/hana.png" class="about-photo" alt="Hana Baskin"></p>
+<p>I’m Hana Baskin. I came to baseball analytics from the classroom.</p>
+<p>Teaching turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It’s getting someone who doesn’t care about your model to understand what it means and act on it. That is the entire job of a teacher, and it’s the skill I lean on most here. It’s why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you’re actually looking at.</p>
+<p>The rest came from coursework through a Master’s in Data Analytics and also what I taught myself: R, statistical modeling, package development, web deployment. This site is the result. The reason it exists is that building the thing is how I learned to build the thing.</p>
+<p>I’m currently looking for analytics work in baseball with a college program, a professional club, or an organization working with sports data. If that’s you, I’d genuinely like to talk.</p>
+<p>Get in touch: <a href="mailto:hana.baskin@gmail.com" class="email">hana.baskin@gmail.com</a> · <a href="https://www.linkedin.com/in/hana-baskin-2492862a/" target="_blank">LinkedIn</a></p>
+</section>
+<section id="corrections-and-requests" class="level2">
+<h2 class="anchored" data-anchor-id="corrections-and-requests">Corrections and requests</h2>
+<p>If you find an error in the data, I want to know about it. If there’s a metric, conference, or view you wish existed here, tell me.</p>
+<p>Bug reports are welcome on <a href="https://github.com/hvb210/accbaseballr/issues" target="_blank">GitHub Issues</a>; everything else, just email me.</p>
+</section>
+<section id="support" class="level2">
+<h2 class="anchored" data-anchor-id="support">Support</h2>
+<p>Ball Club Data is free and will stay free. If it’s useful to you and you want to help cover hosting, there’s a <a href="https://ballclubdata.com/Contribute.html" target="_blank">tip jar</a>. Sharing the work with someone who’d find it valuable helps just as much.</p>
 
 
 </section>

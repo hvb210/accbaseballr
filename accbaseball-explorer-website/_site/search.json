@@ -39,35 +39,49 @@
     "href": "About.html",
     "title": "About the Project",
     "section": "",
-    "text": "The College Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.\nThis project applies similar approaches to collegiate baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods."
+    "text": "Ball Club Data is an independent college baseball analytics project. It brings the metrics that have been standard in professional baseball for two decades (wOBA, wRC+, ISO, FIP, K-BB%) to a level of the sport where they are still surprisingly hard to find.\nEverything here is free, the methodology is published, and the underlying data is downloadable. It is built and maintained by one person: me."
   },
   {
-    "objectID": "About.html#background",
-    "href": "About.html#background",
+    "objectID": "About.html#why-this-exists",
+    "href": "About.html#why-this-exists",
     "title": "About the Project",
-    "section": "",
-    "text": "The College Baseball Explorer was created to bring modern sabermetric analysis to college baseball. While advanced metrics such as wOBA, wRC+, and FIP have become standard tools for evaluating Major League Baseball, comparable analytical resources for college baseball remain limited.\nThis project applies similar approaches to collegiate baseball, allowing player and team performance to be evaluated in greater context through interactive tools and reproducible statistical methods."
+    "section": "Why This Exists",
+    "text": "Why This Exists\nCollege baseball generates an enormous amount of data, and box scores are publicly available almost everywhere. The challenge is turning that raw information into objective measures of player and team performance. The numbers needed to make meaningful comparisons are often scattered across different pages, sources, and seasons, making it difficult to put players or teams on the same footing, especially when they come from different conferences.\nA .320 hitter in the SEC and a .320 hitter in a weaker conference are not the same player. There has been no easy, free way to see how a given hitter or pitcher actually stacks up against their peers, across seasons, on a rate basis, with the arithmetic shown.\nThat is the gap this project fills. Not a proprietary black box and not a paywall. It’s a working tool with the formulas printed on the page next to it."
   },
   {
-    "objectID": "About.html#data-source",
-    "href": "About.html#data-source",
+    "objectID": "About.html#what-you-can-do-here",
+    "href": "About.html#what-you-can-do-here",
     "title": "About the Project",
-    "section": "Data Source",
-    "text": "Data Source\nThe College Baseball Explorer uses publicly available college baseball data enhanced with advanced sabermetric calculations dating back to 2011.\nAdvanced sabermetrics metrics include:\n\nwOBA\nwRC+\nISO\nK-BB%\nFIP\n\nThe package standardizes raw statistics, calculates league context, and creates a consistent framework for comparing players and teams across seasons."
+    "section": "What You Can Do Here",
+    "text": "What You Can Do Here\nBatting and pitching leaderboards: Filter by conference, season, team, and minimum playing time. Sort any column. Filter within any column. Download the result as a CSV.\nPlayer profiles: Career histories with percentile rankings, so you can see not just what a player did but where that performance sits relative to everyone else who qualified that season.\nConference leaderboards and visualizations: Team-level aggregates, plus charts that put the whole conference on one screen, including a wOBA-versus-ISO view that separates teams getting on base through contact and patience from teams doing it through power.\nEvery table is exportable. The pipeline that produces it is open source.\nCoverage currently spans the ACC and SEC, 2011 through the most recent completed season. Big 12 and Big Ten data are in progress. The original ACC-only version of this tool remains available in the archive."
   },
   {
-    "objectID": "About.html#technology",
-    "href": "About.html#technology",
+    "objectID": "About.html#how-its-built",
+    "href": "About.html#how-its-built",
     "title": "About the Project",
-    "section": "Technology",
-    "text": "Technology\nThe College Baseball Explorer was built using:\n\nR for data processing and statistical calculations\ntidyverse for data manipulation\nShiny for the interactive web application\nreactable for dynamic player and team tables\nggplot2 for data visualization\nQuarto for this documentation website"
+    "section": "How It’s Built",
+    "text": "How It’s Built\nThe data is sourced from Sports Reference, then cleaned, standardized, and extended with calculated advanced metrics through a pipeline I wrote in R.\nThat pipeline is not just a pile of local scripts. The ACC data is packaged as accbaseballr, an R package published on CRAN, so anyone can install it and work with college baseball data directly:\ninstall.packages(“accbaseballr”)\nThe rest of the stack is R end to end: tidyverse for data processing, Shiny and reactable for the interactive explorer, ggplot2 for the visualizations, and Quarto for this site. The full source lives on GitHub under an MIT license.\nI mention the plumbing because it matters. Anyone can post a chart. Building something that updates, holds up under scrutiny, survives CRAN review, and can be independently verified by a stranger is a different exercise."
   },
   {
-    "objectID": "About.html#development",
-    "href": "About.html#development",
+    "objectID": "About.html#about-me",
+    "href": "About.html#about-me",
     "title": "About the Project",
-    "section": "Development",
-    "text": "Development\nThis project was built as a way to explore the application of data analytics and statistical modeling within college baseball.\nThe goal is to make advanced baseball analysis more accessible while providing a reproducible framework for evaluating player and team performance."
+    "section": "About Me",
+    "text": "About Me\n\nI’m Hana Baskin. I came to baseball analytics from the classroom.\nTeaching turned out to be unusually good preparation for this work. The hard part of analytics is almost never the model. It’s getting someone who doesn’t care about your model to understand what it means and act on it. That is the entire job of a teacher, and it’s the skill I lean on most here. It’s why the Metrics page shows the formulas instead of hiding them, and why the charts come with a sentence explaining what you’re actually looking at.\nThe rest came from coursework through a Master’s in Data Analytics and also what I taught myself: R, statistical modeling, package development, web deployment. This site is the result. The reason it exists is that building the thing is how I learned to build the thing.\nI’m currently looking for analytics work in baseball with a college program, a professional club, or an organization working with sports data. If that’s you, I’d genuinely like to talk.\nGet in touch: hana.baskin@gmail.com · LinkedIn"
+  },
+  {
+    "objectID": "About.html#corrections-and-requests",
+    "href": "About.html#corrections-and-requests",
+    "title": "About the Project",
+    "section": "Corrections and requests",
+    "text": "Corrections and requests\nIf you find an error in the data, I want to know about it. If there’s a metric, conference, or view you wish existed here, tell me.\nBug reports are welcome on GitHub Issues; everything else, just email me."
+  },
+  {
+    "objectID": "About.html#support",
+    "href": "About.html#support",
+    "title": "About the Project",
+    "section": "Support",
+    "text": "Support\nBall Club Data is free and will stay free. If it’s useful to you and you want to help cover hosting, there’s a tip jar. Sharing the work with someone who’d find it valuable helps just as much."
   },
   {
     "objectID": "Archive.html",

@@ -1,1 +1,8 @@
 /* css styles */
+.about-photo {
+  float: right;
+  width: 225px;
+  height: auto;
+  margin: 0 0 20px 30px;
+  border-radius: 8px;
+}
