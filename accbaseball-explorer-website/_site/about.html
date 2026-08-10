@@ -79,15 +79,18 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </script>
+<meta name="description" content="Learn about Ball Club Data, its college baseball analytics projects, data sources, and the person behind the site.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About the Project – Ball Club Data">
+<meta name="twitter:description" content="Interactive college baseball statistics and analytics by season, conference, team, and player.">
+<meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
 
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="About the Project – Ball Club Data">
 <meta property="og:description" content="Interactive college baseball statistics and analytics by season, conference, team, and player.">
-<meta property="og:image" content="https://ballclubdata.com/images/ballclubdata.png">
+<meta property="og:image" content="images/ballclubdata.png">
 <meta property="og:site_name" content="Ball Club Data">
-<meta property="og:image:height" content="800">
-<meta property="og:image:width" content="1000">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -188,6 +191,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </header>
 
 
+<hr>
 <p>Ball Club Data is an independent college baseball analytics project. It brings the metrics that have been standard in professional baseball for two decades (wOBA, wRC+, ISO, FIP, K-BB%) to a level of the sport where they are still surprisingly hard to find.</p>
 <p>Everything here is free, the methodology is published, and the underlying data is downloadable. It is built and maintained by one person: me.</p>
 <section id="why-this-exists" class="level2">
@@ -228,7 +232,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </section>
 <section id="support" class="level2">
 <h2 class="anchored" data-anchor-id="support">Support</h2>
-<p>Ball Club Data is free and will stay free. If it’s useful to you and you want to help cover hosting, there’s a tip jar. Sharing the work with someone who’d find it valuable helps just as much.</p>
+<p>Ball Club Data is free and will stay free. If it’s useful to you and you want to help cover hosting, there’s a <a href="https://ballclubdata.com/Contribute.html" target="_blank">tip jar</a>. Sharing the work with someone who’d find it valuable helps just as much.</p>
 
 
 </section>
@@ -307,7 +311,7 @@ gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ballclubdata\.com");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

@@ -1,5 +1,13 @@
 ---
 title: "About the Project"
+include-in-header:
+  text: |
+    <meta name="description" content="Learn about Ball Club Data, its college baseball analytics projects, data sources, and the person behind the site.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="About | Ball Club Data">
+    <meta name="twitter:description" content="Learn about Ball Club Data, its college baseball analytics projects, data sources, and the person behind the site.">
+    <meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
+---
 ---
 
 
@@ -61,6 +69,6 @@ Bug reports are welcome on [GitHub Issues](https://github.com/hvb210/accbaseball
 
 ## Support
 
-Ball Club Data is free and will stay free. If it's useful to you and you want to help cover hosting, there's a tip jar. Sharing the work with someone who'd find it valuable helps just as much.
+Ball Club Data is free and will stay free. If it's useful to you and you want to help cover hosting, there's a [tip jar](https://ballclubdata.com/Contribute.html){target="_blank"}. Sharing the work with someone who'd find it valuable helps just as much.
 
 

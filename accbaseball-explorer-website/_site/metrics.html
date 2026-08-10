@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>metrics – Ball Club Data</title>
+<title>College Baseball Metrics – Ball Club Data</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -79,6 +79,11 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-73DDQNMS2L', { 'anonymize_ip': true});
 </script>
+<meta name="description" content="Learn how Ball Club Data calculates and interprets advanced college baseball statistics and analytics.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="College Baseball Metrics – Ball Club Data">
+<meta name="twitter:description" content="Interactive college baseball statistics and analytics by season, conference, team, and player.">
+<meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -111,12 +116,10 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Ball Club Data">
+<meta property="og:title" content="College Baseball Metrics – Ball Club Data">
 <meta property="og:description" content="Interactive college baseball statistics and analytics by season, conference, team, and player.">
-<meta property="og:image" content="https://ballclubdata.com/images/ballclubdata.png">
+<meta property="og:image" content="images/ballclubdata.png">
 <meta property="og:site_name" content="Ball Club Data">
-<meta property="og:image:height" content="800">
-<meta property="og:image:width" content="1000">
 </head>
 
 <body class="nav-fixed quarto-light">
@@ -186,8 +189,7 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#understanding-the-metrics" id="toc-understanding-the-metrics" class="nav-link active" data-scroll-target="#understanding-the-metrics">Understanding the Metrics</a>
-  <ul class="collapse">
+  <li><a href="#understanding-the-metrics" id="toc-understanding-the-metrics" class="nav-link active" data-scroll-target="#understanding-the-metrics">Understanding the Metrics</a></li>
   <li><a href="#batting" id="toc-batting" class="nav-link" data-scroll-target="#batting">Batting</a>
   <ul class="collapse">
   <li><a href="#woba" id="toc-woba" class="nav-link" data-scroll-target="#woba">wOBA</a></li>
@@ -200,21 +202,36 @@ window.Quarto = {
   <li><a href="#k-bb" id="toc-k-bb" class="nav-link" data-scroll-target="#k-bb">K-BB%</a></li>
   <li><a href="#fip" id="toc-fip" class="nav-link" data-scroll-target="#fip">FIP</a></li>
   </ul></li>
-  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">College Baseball Metrics</h1>
+</div>
 
 
 
+<div class="quarto-title-meta">
 
-<section id="understanding-the-metrics" class="level1">
-<h1>Understanding the Metrics</h1>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="understanding-the-metrics" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-the-metrics">Understanding the Metrics</h2>
 <p>The College Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.</p>
 <p>These metrics provide additional context by accounting for league environment, offensive value, and outcomes that are more directly controlled by the player.</p>
-<hr>
+</section>
 <section id="batting" class="level2">
 <h2 class="anchored" data-anchor-id="batting">Batting</h2>
 <section id="woba" class="level3">
@@ -276,7 +293,6 @@ BABIP = \frac{H - HR}{AB - SO - HR + SF}
 <li><strong>SO</strong> = Strikeouts</li>
 <li><strong>SF</strong> = Sacrifice Flies</li>
 </ul>
-<hr>
 </section>
 </section>
 <section id="pitching" class="level2">
@@ -307,7 +323,6 @@ FIP = \frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10
 <p>Lower FIP values indicate better pitching performance.</p>
 
 
-</section>
 </section>
 </section>
 
@@ -385,7 +400,7 @@ FIP = \frac{13*HR + 3*(BB + HBP) - 2*SO}{IP} + 3.10
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/ballclubdata\.com");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

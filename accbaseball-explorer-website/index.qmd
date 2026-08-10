@@ -1,6 +1,13 @@
 ---
 title: "Ball Club Data"
-description: "Interactive college baseball statistics and analytics by season, conference, team, and player."
+include-in-header:
+  text: |
+    <meta name="description" content="Interactive college baseball statistics and analytics by season,     conference, team, and player.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ball Club Data | College Baseball Analytics">
+    <meta name="twitter:description" content="Interactive college baseball statistics and analytics by season,     conference, team, and player.">
+    <meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
+    
 image: images/ballclubdata.png
 ---
 

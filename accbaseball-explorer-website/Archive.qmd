@@ -1,3 +1,13 @@
+---
+include-in-header:
+  text: |
+    <meta name="description" content="Explore historical ACC college baseball statistics and advanced analytics by season, team, conference, and player.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ACC Baseball Explorer | Ball Club Data">
+    <meta name="twitter:description" content="Explore historical ACC college baseball statistics and advanced analytics by season, team, conference, and player.">
+    <meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
+---
+
 # Advanced Analytics for ACC Baseball
 
 Built with publicly available ACC baseball data and advanced sabermetric methodology using the `accbaseballr` R package.

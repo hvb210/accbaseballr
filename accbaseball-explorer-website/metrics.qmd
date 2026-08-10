@@ -1,10 +1,19 @@
-# Understanding the Metrics
+---
+title: College Baseball Metrics
+include-in-header:
+  text: |
+    <meta name="description" content="Learn how Ball Club Data calculates and interprets advanced college baseball statistics and analytics.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="College Baseball Metrics | Ball Club Data">
+    <meta name="twitter:description" content="Learn how Ball Club Data calculates and interprets advanced college baseball statistics and analytics.">
+    <meta name="twitter:image" content="https://ballclubdata.com/images/ballclubdata.png">
+---
+
+## Understanding the Metrics
 
 The College Baseball Explorer uses modern sabermetric statistics to evaluate player performance beyond traditional statistics such as batting average, RBI, and ERA.
 
 These metrics provide additional context by accounting for league environment, offensive value, and outcomes that are more directly controlled by the player.
-
----
 
 ## Batting
 
@@ -72,8 +81,6 @@ where:
 - **AB** = At Bats
 - **SO** = Strikeouts
 - **SF** = Sacrifice Flies
-
----
 
 ## Pitching
 
