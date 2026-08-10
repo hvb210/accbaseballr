@@ -41,7 +41,7 @@ website:
         href: https://cran.r-project.org/web/packages/accbaseballr/index.html
         target: _blank
       - text: Contribute
-        href: Contribute.qmd
+        href: contribute.qmd
 
 
 format:

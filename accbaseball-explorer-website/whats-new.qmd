@@ -12,23 +12,31 @@ include-in-header:
 
 ## August 2026
 
+**College Baseball Explorer Expansion**
+
+The College Baseball Explorer continues to expand beyond its ACC roots, bringing together data from multiple conferences into a broader college baseball analytics experience.
+
 **College Baseball Explorer Launch**
 
-BallClub Data has expanded beyond its ACC roots with the launch of the College Baseball Explorer.
+Ball Club Data expanded beyond its ACC roots with the launch of the College Baseball Explorer.
 
-The original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer brings a broader view of college baseball analytics. The explorer now allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.
+The original ACC Baseball Explorer has been archived as the foundation of the project, while the new College Baseball Explorer provides a broader view of college baseball analytics. The explorer allows users to analyze player performance across multiple conferences and compare statistics in a larger national context.
 
 **SEC Data Added**
 
-The College Baseball Explorer now includes SEC baseball data, combined with the existing ACC data to create a multi-conference experience.
+The College Baseball Explorer now includes SEC baseball data alongside the existing ACC data.
 
 Users can now:
 
-- Explore conferences individually
-- Compare players across conferences
-- Analyze combined ACC and SEC leaderboards
+Explore conferences individually
+Compare players across conferences
+Analyze combined ACC and SEC leaderboards
 
-Conference filters allow users to customize their view depending on whether they want a conference-specific analysis or a broader look at college baseball.
+**Big 12 Data Added**
+
+The College Baseball Explorer now includes Big 12 baseball data alongside the existing ACC and SEC data.
+
+With the addition of the Big 12, users can now explore three major conferences within a single analytics platform, with conference filters allowing them to switch between conference-specific and broader comparisons.
 
 ## July 2026
 
