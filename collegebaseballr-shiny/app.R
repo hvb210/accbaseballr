@@ -598,7 +598,11 @@ server <- function(input, output, session) {
                   width = 160
                 ),
                 Team = colDef(
-                  width = 140
+                  sticky = "left",
+                  width = 140,
+                  style = list( # keep this column from overlapping the first
+                    left = "160px"
+                  )
                 ),
                 bats = colDef(
                   name = "Bats"
@@ -678,7 +682,11 @@ server <- function(input, output, session) {
                   width = 160
                 ),
                 Team = colDef(
-                  width = 140
+                  sticky = "left",
+                  width = 140,
+                  style = list( # keep this column from overlapping the first
+                    left = "160px"
+                  )
                 ),
                 throws = colDef(
                   name = "Throws"
@@ -820,7 +828,11 @@ server <- function(input, output, session) {
             width = 160
           ),
           Team = colDef(
-            width = 140
+            sticky = "left",
+            width = 140,
+            style = list( # keep this column from overlapping the first
+              left = "160px"
+            )
           ),
           wRC_plus = colDef(
             name = "wRC+",
@@ -929,7 +941,11 @@ server <- function(input, output, session) {
             width = 160
           ),
           Team = colDef(
-            width = 140
+            sticky = "left",
+            width = 140,
+            style = list( # keep this column from overlapping the first
+              left = "160px"
+            )
           ),
           K_BB_pct = colDef(
             name = "K-BB%",
