@@ -776,7 +776,7 @@ server <- function(input, output, session) {
       mutate(
         wRC_plus_percentile = percent_rank(wRC_plus) * 100,
         BB_percentile = percent_rank(BB_pct) * 100,
-        K_percentile = percent_rank(K_pct) * 100,
+        K_percentile = (1 - percent_rank(K_pct)) * 100,
         BABIP_percentile = percent_rank(BABIP) * 100,
         ISO_percentile = percent_rank(ISO) * 100
       ) |>
