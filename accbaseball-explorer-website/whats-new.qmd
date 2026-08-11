@@ -81,7 +81,10 @@ Created the `accbaseballr` R package to provide a standardized framework for ana
 
 The package processes raw college baseball data and calculates advanced metrics including:
 
-wOBA wRC+ ISO FIP K-BB%
+- wOBA 
+- wRC+ 
+- ISO 
+- FIP K-BB%
 
 The package was submitted to and accepted by CRAN, making it publicly available to the R community.
 

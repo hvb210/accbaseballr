@@ -409,7 +409,7 @@ logos <- tibble(
     "Louisville",
     "Wake Forest",
     "California",
-    "Maryland",
+    "Maryland", # also in Big Ten
     # SEC
     "Georgia",
     "Alabama",
@@ -441,7 +441,24 @@ logos <- tibble(
     "Utah",
     "BYU",
     "Houston",
-    "Arizona"
+    "Arizona",
+    # Big Ten
+    "Illinois",
+    "Indiana",
+    "Iowa",
+    "Michigan State",
+    "Michigan",
+    "Minnesota",
+    "Nebraska",
+    "Northwestern",
+    "Ohio State",
+    "Penn State",
+    "Purdue",
+    "Rutgers",
+    "Oregon",
+    "UCLA",
+    "USC",
+    "Washington"
   ),
   logo = c(
     # ACC
@@ -493,7 +510,24 @@ logos <- tibble(
     "www/utah_logo.png",
     "www/byu_logo.png",
     "www/houston_logo.png",
-    "www/arizona_logo.png"
+    "www/arizona_logo.png",
+    # Big Ten
+    "www/illinois_logo.png",
+    "www/indiana_logo.png",
+    "www/iowa_logo.png",
+    "www/michigan_state_logo.png",
+    "www/michigan_logo.png",
+    "www/minnesota_logo.png",
+    "www/nebraska_logo.png",
+    "www/northwestern_logo.png",
+    "www/ohio_state_logo.png",
+    "www/penn_state_logo.png",
+    "www/purdue_logo.png",
+    "www/rutgers_logo.png",
+    "www/oregon_logo.png",
+    "www/ucla_logo.png",
+    "www/usc_logo.png",
+    "www/washington_logo.png"
   )
 
 )
