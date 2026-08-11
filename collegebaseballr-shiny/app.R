@@ -468,7 +468,7 @@ logos <- tibble(
     "www/nd_logo.png",
     "www/vt_logo.png",
     "www/stanford_logo.png",
-    "www//bc_logo.png",
+    "www/bc_logo.png",
     "www/clemson_logo.png",
     "www/pitt_logo.png",
     "www/miami_logo.png",

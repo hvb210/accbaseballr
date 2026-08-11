@@ -12,6 +12,23 @@ include-in-header:
 
 ## August 2026
 
+**Power Four Coverage Complete**
+
+The College Baseball Explorer now includes data from all four power conferences: ACC, Big Ten, Big 12, and SEC.
+
+With the addition of Big Ten data, the Explorer provides a broader national view of college baseball analytics, allowing users to explore individual conferences, compare players across conferences, and analyze performance across the complete Power Four.
+
+**Big Ten Data Added**
+
+Big Ten baseball data has been added to the College Baseball Explorer, completing coverage of the Power Four conferences.
+
+Users can now:
+
+Explore ACC, Big Ten, Big 12, and SEC data individually
+Compare players across all four conferences
+Analyze combined Power Four leaderboards
+Filter between conference-specific and broader comparisons
+
 **College Baseball Explorer Expansion**
 
 The College Baseball Explorer continues to expand beyond its ACC roots, bringing together data from multiple conferences into a broader college baseball analytics experience.
