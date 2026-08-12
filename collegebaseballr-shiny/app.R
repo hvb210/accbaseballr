@@ -221,7 +221,7 @@ ui <- fluidPage(
       # create conditional sliders for numeric filters
 
       conditionalPanel(
-        condition = "input.tabs == 'Batting'",
+        condition = "input.tabs == 'Batting'|| input.tabs == 'Player Profiles'",
 
         sliderInput(
           "min_PA",
@@ -234,7 +234,7 @@ ui <- fluidPage(
       ),
 
       conditionalPanel(
-        condition = "input.tabs == 'Pitching'",
+        condition = "input.tabs == 'Pitching'|| input.tabs == 'Player Profiles'",
 
         sliderInput(
           "min_IP",
@@ -299,8 +299,8 @@ ui <- fluidPage(
                 type = 1
                 ),
 
-              p("Percentiles are calculated within each season among selected conference players with
-                at least 50 plate appearances.")
+              p("Percentiles are calculated within each season among selected conference players
+                who meet the minimum PA threshold set by the user.")
             ),
 
             nav_panel(
@@ -317,8 +317,8 @@ ui <- fluidPage(
                 type = 1
                 ),
 
-              p("Percentiles are calculated within each season among selected conference players with
-                at least 50 innings pitched.")
+              p("Percentiles are calculated within each season among selected conference players
+                who meet the minimum IP threshold set by the user.")
             ),
 
           )
@@ -769,7 +769,7 @@ server <- function(input, output, session) {
   batter_profile_data <- reactive({
 
     batter_percentile <- college_batting |>
-      filter(PA >=50, # keeps percentile rankings more accurate
+      filter(PA >= input$min_PA, # keeps percentile rankings more accurate
              Conference %in% selected_conferences() # percentile calculated based on conferences selected
              ) |>
       group_by(Season) |>
@@ -891,7 +891,7 @@ server <- function(input, output, session) {
 
     pitcher_percentile <- college_pitching |>
       filter(
-        IP >= 50, # keeps percentile rankings more accurate
+        IP >= input$min_IP, # keeps percentile rankings more accurate
         Conference %in% selected_conferences() # percentile calculated based on conferences selected
         ) |>
       group_by(Season) |>
