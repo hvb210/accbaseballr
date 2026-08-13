@@ -5,6 +5,6 @@ account: hanabaskin
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 17676364
-bundleId: 12400947
+bundleId: 12405598
 url: https://hanabaskin.shinyapps.io/collegebaseballr-shiny/
 version: 1

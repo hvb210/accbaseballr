@@ -111,4 +111,4 @@ Development continues towards completion of Power Four conference coverage.
 
 Upcoming additions include:
 
-- Big Ten baseball data
+- Increase variety of conference visualizations
