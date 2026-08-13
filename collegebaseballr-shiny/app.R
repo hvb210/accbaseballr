@@ -1236,13 +1236,19 @@ server <- function(input, output, session) {
       ) |>
       group_by(Team) |>
       summarise(
-        BB_pct = mean(BB_pct, na.rm = TRUE),
-        ISO = mean(ISO, na.rm = TRUE),
+        team_PA = sum(PA, na.rm = TRUE),
+        team_BB = sum(BB, na.rm = TRUE),
+        team_BA = sum(BA, na.rm = TRUE),
+        team_SLG = sum(SLG, na.rm = TRUE),
         .groups = "drop"
       ) |>
       mutate(
-        BB_percentile = percent_rank(BB_pct) * 100,
-        ISO_percentile = percent_rank(ISO) * 100
+        team_BB_pct = team_BB / team_PA * 100,
+        team_ISO = team_SLG - team_BA
+      ) |>
+      mutate(
+        BB_percentile = percent_rank(team_BB_pct) * 100,
+        ISO_percentile = percent_rank(team_ISO) * 100
       ) |>
       left_join(logos, by = "Team")
 
@@ -1338,7 +1344,7 @@ server <- function(input, output, session) {
         ) +
         labs(
           x = "ISO Percentile",
-          y = "BB% Percentile",
+          y = "BB%rso Percentile",
           title = paste(
             input$Season,
             conference_label(),
