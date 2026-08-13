@@ -12,7 +12,7 @@ include-in-header:
 
 ## August 2026
 
-**Offensive Profile Visualization**
+**Offensive Profile Quadrant Chart**
 
 This visualization compares teams based on their percentile rankings in walk rate (BB%) and isolated power (ISO). The four quadrants represent different offensive approaches: Patient + Power, Patient + Contact, Aggressive + Power, and Aggressive + Contact.
 
