@@ -199,6 +199,7 @@ window.Quarto = {
   <li><a href="#wrc" id="toc-wrc" class="nav-link" data-scroll-target="#wrc">wRC+</a></li>
   <li><a href="#iso" id="toc-iso" class="nav-link" data-scroll-target="#iso">ISO</a></li>
   <li><a href="#babip" id="toc-babip" class="nav-link" data-scroll-target="#babip">BABIP</a></li>
+  <li><a href="#seca" id="toc-seca" class="nav-link" data-scroll-target="#seca">SecA</a></li>
   </ul></li>
   <li><a href="#pitching" id="toc-pitching" class="nav-link" data-scroll-target="#pitching">Pitching</a>
   <ul class="collapse">
@@ -300,6 +301,21 @@ BABIP = \frac{H - HR}{AB - SO - HR + SF}
 <li><strong>AB</strong> = At Bats</li>
 <li><strong>SO</strong> = Strikeouts</li>
 <li><strong>SF</strong> = Sacrifice Flies</li>
+</ul>
+</section>
+<section id="seca" class="level3">
+<h3 class="anchored" data-anchor-id="seca">SecA</h3>
+<p><strong>Secondary Average</strong> measures the sum of extra bases gained on hits, walks, and stolen bases (less times caught stealing) per at bat. It attempts to evaluate the number of bases a player gained independent of batting average.</p>
+<p><span class="math display">\[
+SecA = \frac{TB - H + BB + SB - CS}{AB}
+\]</span> where:</p>
+<ul>
+<li><strong>TB</strong> = Total Bases (1B + 2 * 2B + 3 * 3B + 4 * HR)</li>
+<li><strong>H</strong> = Hits</li>
+<li><strong>BB</strong> = Bases on Balls/Walks</li>
+<li><strong>SB</strong> = Stolen Bases</li>
+<li><strong>CS</strong> = Caught Stealing</li>
+<li><strong>AB</strong> = At Bats</li>
 </ul>
 </section>
 </section>
