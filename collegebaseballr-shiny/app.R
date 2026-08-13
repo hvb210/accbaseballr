@@ -347,14 +347,15 @@ ui <- fluidPage(
               choices = c(
                 "wRC+" = "wRC_plus",
                 "wOBA vs ISO" = "offensive_profile",
-                "FIP vs K-BB%" = "pitching_profile")
+                "FIP vs K-BB%" = "pitching_profile",
+                "BB% vs ISO %iles" = "plate_discipline_vs_power")
             ),
             withSpinner(
               plotOutput("team_plot",
                        height = "500px"),
               type = 1
               ), # keeps text from overlapping plot
-            textOutput("plot_description")
+            uiOutput("plot_description") # allows for multiple paragraph description under plot
           )
         ),
 
@@ -1225,6 +1226,28 @@ server <- function(input, output, session) {
 
   })
 
+  team_percentile_data <- reactive({
+
+    college_batting |>
+      filter(
+        Season == input$Season,
+        Conference %in% selected_conferences(),
+        PA > 0
+      ) |>
+      group_by(Team) |>
+      summarise(
+        BB_pct = mean(BB_pct, na.rm = TRUE),
+        ISO = mean(ISO, na.rm = TRUE),
+        .groups = "drop"
+      ) |>
+      mutate(
+        BB_percentile = percent_rank(BB_pct) * 100,
+        ISO_percentile = percent_rank(ISO) * 100
+      ) |>
+      left_join(logos, by = "Team")
+
+  })
+
   output$team_plot <- renderPlot({
 
     metric <- input$team_metric
@@ -1293,6 +1316,36 @@ server <- function(input, output, session) {
         ) +
         theme_minimal()
 
+    }
+
+    else if(metric == "plate_discipline_vs_power") {
+
+      team_percentile_data() |>
+        ggplot(aes(x = ISO_percentile, y = BB_percentile)) +
+        geom_vline(
+          xintercept = 50,
+          linetype = "dashed",
+          color = "gray"
+        ) +
+        geom_hline(
+          yintercept = 50,
+          linetype = "dashed",
+          color = "gray"
+        ) +
+        geom_image(
+          aes(image = logo),
+          size = 0.07
+        ) +
+        labs(
+          x = "ISO Percentile",
+          y = "BB% Percentile",
+          title = paste(
+            input$Season,
+            conference_label(),
+            "Team Plate Discipline vs Power"
+          )
+        ) +
+        theme_minimal()
     }
   })
 
@@ -1375,7 +1428,7 @@ server <- function(input, output, session) {
     )
   })
 
-  output$plot_description <- renderText({
+  output$plot_description <- renderUI({
 
     metric <- input$team_metric
 
@@ -1392,6 +1445,20 @@ server <- function(input, output, session) {
       "The negative trend line shows that better strikeout-to-walk dominance (K-BB%)
         leads to fewer runs than expected scored against the team (FIP).
         Teams below the trend line have better-than-expected run prevention given their strikeout and walk profile."
+
+    }
+
+    else if(metric == "plate_discipline_vs_power") {
+
+      tagList(
+        p("Teams in the upper-right quadrant rank above the median in both walk rate and isolated power. They combine a disciplined approach at the plate with strong extra-base power."),
+
+        p("Teams in the upper-left quadrant rank above the median in walk rate but below the median in isolated power. They tend to work counts and draw walks but generate less extra-base power."),
+
+        p("Teams in the lower-right quadrant rank below the median in walk rate but above the median in isolated power. They walk less often but compensate with greater extra-base power."),
+
+        p("Teams in the lower-left quadrant rank below the median in both walk rate and isolated power. They draw fewer walks and generate less extra-base power, reflecting a more aggressive, lower-power offensive approach.")
+      )
 
     }
 
