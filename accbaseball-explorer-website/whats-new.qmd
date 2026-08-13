@@ -107,8 +107,6 @@ The package was submitted to and accepted by CRAN, making it publicly available 
 
 ## Future Improvements
 
-Development continues towards completion of Power Four conference coverage.
-
 Upcoming additions include:
 
 - Increase variety of conference visualizations
