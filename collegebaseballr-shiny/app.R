@@ -1344,7 +1344,7 @@ server <- function(input, output, session) {
         ) +
         labs(
           x = "ISO Percentile",
-          y = "BB%rso Percentile",
+          y = "BB% Percentile",
           title = paste(
             input$Season,
             conference_label(),
