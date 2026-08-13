@@ -83,6 +83,23 @@ where:
 - **SO** = Strikeouts
 - **SF** = Sacrifice Flies
 
+### SecA
+
+**Secondary Average** measures the sum of extra bases gained on hits, walks, and stolen bases (less times caught stealing) per at bat. It attempts to evaluate the number of bases a player gained independent of batting average.
+
+$$
+SecA = \frac{TB - H + BB + SB - CS}{AB}
+$$
+where:
+
+- **TB** = Total Bases (1B + 2 * 2B + 3 * 3B + 4 * HR)
+- **H** = Hits
+- **BB** = Bases on Balls/Walks
+- **SB** = Stolen Bases
+- **CS** = Caught Stealing
+- **AB** = At Bats
+
+
 ## Pitching
 
 ### K-BB%

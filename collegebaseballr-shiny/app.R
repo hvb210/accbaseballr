@@ -94,7 +94,8 @@ college_batting <- college_batting |>
     ISO = SLG - BA,
     K_pct = SO / PA,
     BABIP = (H - HR) / (AB - SO - HR + SF),
-    BB_pct = BB / PA
+    BB_pct = BB / PA,
+    SecA = (TB - H + BB + SB - CS) / AB
   )
 
 college_batting <- college_batting |>
@@ -373,9 +374,11 @@ ui <- fluidPage(
             from slugging percentage."),
           p("BABIP (Batting Average from Balls in Play) measures how often a ball put into play by a hitter turns into a base hit,
             leaving out home runs, strikeouts, and walks."),
+          p("SecA (Secondary Average) measures the sum of extra bases gained on hits, walks, and stolen bases (less times caught stealing) per at bat
+            to evaluate the number of bases a player gained independent of batting average."),
           h4("Pitching Metrics"),
-          p("WHIP (Walk plus Hits per Innings Pitched) measures the average number of base runners a pitcher allows per inning"),
-          p("K-BB% measures a pitchers control by subtracting the number of walks from strikeouts"),
+          p("WHIP (Walk plus Hits per Innings Pitched) measures the average number of base runners a pitcher allows per inning."),
+          p("K-BB% measures a pitchers control by subtracting the number of walks from strikeouts."),
           p("FIP (Fielding Independent Pitching) measures a pitcher's true performance using only strikeouts, walks, hit-by-pitches, and home runs.
             It removes balls hit into play to eliminate luck and the quality of team defense."),
           h4("Data Source"),
@@ -578,13 +581,13 @@ server <- function(input, output, session) {
 
     if (input$Team != "All") {
       data |>
-        select(Name, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
+        select(Name, bats, G, PA, AB, R, H, HR, BB, SO, BA, SecA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
     else {
 
       data |>
-        select(Name, Team, Conference, bats, G, PA, AB, R, H, HR, BB, SO, BA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
+        select(Name, Team, Conference, bats, G, PA, AB, R, H, HR, BB, SO, BA, SecA, ISO, K_pct, BABIP, BB_pct, wOBA, wRC_plus)
     }
 
   })
@@ -606,6 +609,9 @@ server <- function(input, output, session) {
                 ),
                 bats = colDef(
                   name = "Bats"
+                ),
+                SecA = colDef(
+                  format = colFormat(digits = 3)
                 ),
                 BA = colDef(
                   format = colFormat(digits = 3)
@@ -778,7 +784,8 @@ server <- function(input, output, session) {
         BB_percentile = percent_rank(BB_pct) * 100,
         K_percentile = (1 - percent_rank(K_pct)) * 100,
         BABIP_percentile = percent_rank(BABIP) * 100,
-        ISO_percentile = percent_rank(ISO) * 100
+        ISO_percentile = percent_rank(ISO) * 100,
+        SecA_percentile = percent_rank(SecA) * 100
       ) |>
       ungroup() |>
       select(
@@ -788,7 +795,8 @@ server <- function(input, output, session) {
         BB_percentile,
         K_percentile,
         BABIP_percentile,
-        ISO_percentile
+        ISO_percentile,
+        SecA_percentile
       )
 
     college_batting |>
@@ -819,7 +827,9 @@ server <- function(input, output, session) {
         BABIP,
         BABIP_percentile,
         ISO,
-        ISO_percentile
+        ISO_percentile,
+        SecA,
+        SecA_percentile
       ) |>
       reactable(
         columns = list(
@@ -872,6 +882,13 @@ server <- function(input, output, session) {
           ),
           BABIP_percentile = colDef(
             name = "BABIP %ile",
+            format = colFormat(digits = 1)
+          ),
+          SecA = colDef(
+            format = colFormat(digits = 3)
+          ),
+          SecA_percentile = colDef(
+            name = "SecA %ile",
             format = colFormat(digits = 1)
           )
         ),
@@ -992,6 +1009,7 @@ server <- function(input, output, session) {
     batting_team <- college_batting |>
       filter(Season == input$Season,
              PA > 0,
+             AB > 0,
              Conference %in% selected_conferences()
              )
 
@@ -1004,7 +1022,8 @@ server <- function(input, output, session) {
         ISO = mean(ISO, na.rm = TRUE),
         total_HR = sum(HR, na.rm = TRUE),
         K_pct = mean(K_pct, na.rm = TRUE),
-        SO_bat = mean(SO, na.rm = TRUE)
+        SO_bat = mean(SO, na.rm = TRUE),
+        SecA = mean(SecA, na.rm = TRUE)
       )
 
     # pitching team averages
@@ -1099,6 +1118,10 @@ server <- function(input, output, session) {
                   name = "Avg Pitching SO",
                   format = colFormat(digits = 3),
                   width = 160
+                ),
+                SecA = colDef(
+                  name = "Avg SecA",
+                  format = colFormat(digits = 3)
                 )
               ),
 
