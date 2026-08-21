@@ -12,6 +12,22 @@ include-in-header:
 
 ## August 2026
 
+**Batted-Ball Spray Charts**
+
+The College Baseball Explorer now includes interactive batted-ball spray charts on batter profile pages.
+
+Spray charts show the location of each recorded batted ball on a baseball field, allowing users to explore a hitter’s distribution of contact across the field. Points are colored by the opposing pitcher’s throwing hand, making it easier to compare batted-ball direction against left-handed and right-handed pitching.
+
+The charts currently include 2026 NCAA postseason game data. Each plotted point represents a completed batted-ball event, with duplicate pitch-description records removed to ensure the chart reflects individual balls in play.
+
+Users can now:
+
+- View individual hitter spray charts from the Batter Profiles tab
+- See batted-ball location across the field
+- Compare contact direction against left- and right-handed pitchers
+
+*Note: Gray points indicate that pitcher handedness was unavailable in the current reference data. This generally occurs when the opposing pitcher is from outside the Power Four conferences covered by the Explorer.*
+
 **Offensive Profile Quadrant Chart**
 
 This visualization compares teams based on their percentile rankings in walk rate (BB%) and isolated power (ISO). The four quadrants represent different offensive approaches: Patient + Power, Patient + Contact, Aggressive + Power, and Aggressive + Contact.

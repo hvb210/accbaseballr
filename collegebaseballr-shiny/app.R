@@ -6,10 +6,26 @@ library(bslib)
 library(reactable)
 library(ggplot2)
 library(ggimage)
+library(httr2) # web requests
+library(purrr) # tools for looping/mapping over lists (map_dfr, keep, pluck)
+library(tibble)
+library(lubridate) # dates
+library(glue)
+library(stringr)
 
 
 college_batting_raw <- readRDS("data/batting.rds")
 college_pitching_raw <- readRDS("data/pitching.rds")
+batted_balls_multi <- readRDS("data/batted_balls_multi_2026.rds")
+
+
+# Use this to match ESPN player with Sports Reference roster. Extracts last name
+get_last_name <- function(name) {
+  name |>
+    str_split("\\s+") |> # splits name at space into two words
+    purrr::map_chr(dplyr::last) # selects the final word
+}
+
 
 ### BUILD LEAGUE CONTEXT #######################################################
 
@@ -168,8 +184,293 @@ college_pitching <- college_pitching |>
 college_pitching <- college_pitching |>
   select(-c(W, L, `W-L%`, G, GF, CG, SHO, SV, BK, WP, H9, HR9, BB9, SO9, `SO/W`, Notes, `Name-additional`))
 
+# Clean pitcher names to remove -P from ESPN
+clean_name <- function(x) {
+  x |>
+    str_to_lower() |>
+    stringi::stri_trans_general("Latin-ASCII") |> # remove accents
+    str_replace_all("[^a-z ]", "") |>
+    str_remove("\\b(jr|sr|ii|iii|iv|v)\\b") |> # remove suffix
+    str_squish()
+}
+
+pitcher_hand_lookup <- college_pitching |>
+  filter(
+    !is.na(Name),
+    !is.na(throws)
+  ) |>
+  transmute(
+    year = as.integer(Season),
+    pitcher_name_clean = clean_name(Name),
+    pitcher_hand = throws
+  ) |>
+  distinct()
+
+# known pitcher name pattern discrepancies
+pitcher_name_aliases <- tribble(
+  ~year, ~pitcher_name_clean, ~pitcher_hand,
+  2026L, "john d mitchell", "Right",
+  2026L, "ty horn",          "Right",
+  2026L, "ira austin iv",    "Right",
+  2026L, "cameron padgett",  "Right"
+)
+
 # creating this variable for checkbox selection in the UI
 all_conferences <- sort(unique(college_batting$Conference))
+
+### BATTED BALLS BUILD #########################################################
+
+# if a is null, use be instead
+`%||%` <- function(a, b) if (is.null(a)) b else a
+
+# gets list of every college baseball team from ESPN
+get_espn_teams <- function() {
+
+  url <- paste0(
+    "https://site.api.espn.com/apis/site/v2/sports/",
+    "baseball/college-baseball/teams?limit=1000"
+  )
+
+  request(url) |>
+    req_perform() |> # sends web request
+    resp_body_json(simplifyVector = FALSE) # turns JSON to R list
+}
+
+# stores the result of the function
+espn_teams_raw <- get_espn_teams()
+
+#for each item in this list, run this function, and stick all the results together into one table
+espn_teams <- purrr::map_dfr(
+  espn_teams_raw$sports[[1]]$leagues[[1]]$teams,
+  \(x) {
+
+    # for each team: creates a table of team_id, team display name, and abbreviation
+    team <- x$team
+
+    tibble(
+      team_id = team$id %||% NA_character_,
+      team_name = team$displayName %||% NA_character_,
+      abbreviation = team$abbreviation %||% NA_character_
+    )
+  }
+)
+
+p4_names <- tribble(
+  ~team_name, ~conference,
+
+  # ACC
+  "Boston College Eagles", "ACC",
+  "California Golden Bears", "ACC",
+  "Clemson Tigers", "ACC",
+  "Duke Blue Devils", "ACC",
+  "Florida State Seminoles", "ACC",
+  "Georgia Tech Yellow Jackets", "ACC",
+  "Louisville Cardinals", "ACC",
+  "Miami Hurricanes", "ACC",
+  "NC State Wolfpack", "ACC",
+  "North Carolina Tar Heels", "ACC",
+  "Notre Dame Fighting Irish", "ACC",
+  "Pittsburgh Panthers", "ACC",
+  "Stanford Cardinal", "ACC",
+  "Syracuse Orange", "ACC",
+  "Virginia Cavaliers", "ACC",
+  "Virginia Tech Hokies", "ACC",
+  "Wake Forest Demon Deacons", "ACC",
+
+  # Big Ten
+  "Illinois Fighting Illini", "Big Ten",
+  "Indiana Hoosiers", "Big Ten",
+  "Iowa Hawkeyes", "Big Ten",
+  "Maryland Terrapins", "Big Ten",
+  "Michigan Wolverines", "Big Ten",
+  "Michigan State Spartans", "Big Ten",
+  "Minnesota Golden Gophers", "Big Ten",
+  "Nebraska Cornhuskers", "Big Ten",
+  "Northwestern Wildcats", "Big Ten",
+  "Ohio State Buckeyes", "Big Ten",
+  "Oregon Ducks", "Big Ten",
+  "Penn State Nittany Lions", "Big Ten",
+  "Purdue Boilermakers", "Big Ten",
+  "Rutgers Scarlet Knights", "Big Ten",
+  "UCLA Bruins", "Big Ten",
+  "USC Trojans", "Big Ten",
+  "Washington Huskies", "Big Ten",
+
+  # Big 12
+  "Arizona Wildcats", "Big 12",
+  "Arizona State Sun Devils", "Big 12",
+  "Baylor Bears", "Big 12",
+  "BYU Cougars", "Big 12",
+  "Cincinnati Bearcats", "Big 12",
+  "Houston Cougars", "Big 12",
+  "Kansas Jayhawks", "Big 12",
+  "Kansas State Wildcats", "Big 12",
+  "Oklahoma State Cowboys", "Big 12",
+  "TCU Horned Frogs", "Big 12",
+  "Texas Tech Red Raiders", "Big 12",
+  "UCF Knights", "Big 12",
+  "Utah Utes", "Big 12",
+  "West Virginia Mountaineers", "Big 12",
+
+  # SEC
+  "Alabama Crimson Tide", "SEC",
+  "Arkansas Razorbacks", "SEC",
+  "Auburn Tigers", "SEC",
+  "Florida Gators", "SEC",
+  "Georgia Bulldogs", "SEC",
+  "Kentucky Wildcats", "SEC",
+  "LSU Tigers", "SEC",
+  "Mississippi State Bulldogs", "SEC",
+  "Missouri Tigers", "SEC",
+  "Ole Miss Rebels", "SEC",
+  "Oklahoma Sooners", "SEC",
+  "South Carolina Gamecocks", "SEC",
+  "Tennessee Volunteers", "SEC",
+  "Texas Longhorns", "SEC",
+  "Texas A&M Aggies", "SEC",
+  "Vanderbilt Commodores", "SEC"
+)
+
+# joins team_id, team display name, and abbreviation with conference for only power four teams
+p4_teams <- espn_teams |>
+  inner_join(
+    p4_names,
+    by = "team_name"
+  )
+
+# stores the id numbers
+p4_ids <- p4_teams$team_id
+
+
+### SPRAY DATA BUILD ###########################################################
+
+# field coordinates
+home_x <- 125.2
+home_y <- 203.2
+
+third_x <- 100.7
+third_y <- 176.6
+
+second_x <- 125.2
+second_y <- 150.1
+
+first_x <- 149.6
+first_y <- 176.7
+
+left_foul_x <- 24.5
+left_foul_y <- 102.6
+
+right_foul_x <- 221.0
+right_foul_y <- 106.6
+
+# foul lines
+foul_lines <- tibble(
+  x = c(
+    home_x, left_foul_x, NA,
+    home_x, right_foul_x
+  ),
+  y = c(
+    home_y, left_foul_y, NA,
+    home_y, right_foul_y
+  )
+)
+
+# infield diamond
+diamond <- tibble(
+  x = c(
+    home_x,
+    third_x,
+    second_x,
+    first_x,
+    home_x
+  ),
+  y = c(
+    home_y,
+    third_y,
+    second_y,
+    first_y,
+    home_y
+  )
+)
+
+width_lookup <- tibble(
+  depth = c(0, 15, 30, 45, 65, 85),
+  width = c(32.5, 54.8, 111, 131, 170, 185)
+)
+
+
+batted_balls_spray <- batted_balls_multi |>
+  filter(
+    !is.na(hit_x),
+    !is.na(hit_y),
+    !str_detect(result, "^Pitch\\s") # removes duplicate records of the same play that start with "Pitch #"
+  ) |>
+  mutate(
+    pitcher_name_clean = clean_name(pitcher_espn_name)
+  ) |>
+  left_join(
+    pitcher_hand_lookup,
+    by = c(
+      "year",
+      "pitcher_name_clean"
+    )
+  ) |>
+  left_join(
+    pitcher_name_aliases,
+    by = c(
+      "year",
+      "pitcher_name_clean"
+    ),
+    suffix = c("", "_alias")
+  ) |>
+  mutate(
+    pitcher_hand = coalesce(
+      pitcher_hand,
+      pitcher_hand_alias
+    )
+  ) |>
+  select(-pitcher_hand_alias) |>
+  mutate(
+    dx = hit_x - home_x,
+    depth = home_y - hit_y,
+
+    depth_for_lookup = pmin(
+      pmax(depth, 0),
+      85
+    ),
+
+    espn_width = approx(
+      width_lookup$depth,
+      width_lookup$width,
+      xout = depth_for_lookup,
+      rule = 2
+    )$y,
+
+    y_svg = hit_y,
+
+    left_boundary =
+      home_x +
+      (left_foul_x - home_x) *
+      (y_svg - home_y) /
+      (left_foul_y - home_y),
+
+    right_boundary =
+      home_x +
+      (right_foul_x - home_x) *
+      (y_svg - home_y) /
+      (right_foul_y - home_y),
+
+    svg_width =
+      right_boundary - left_boundary,
+
+    relative_x =
+      dx / (espn_width / 2),
+
+    x_svg =
+      home_x +
+      relative_x * svg_width / 2
+  )
+
 
 ### UI BUILD ###################################################################
 
@@ -231,7 +532,7 @@ ui <- fluidPage(
           max = max(college_batting$PA),
           value = 50,  # setting default value to 50 PA
           step = 5
-        ),
+        )
       ),
 
       conditionalPanel(
@@ -301,8 +602,23 @@ ui <- fluidPage(
                 ),
 
               p("Percentiles are calculated within each season among selected conference players
-                who meet the minimum PA threshold set by the user.")
-            ),
+                who meet the minimum PA threshold set by the user."),
+
+              h4("Batted Ball Spray Chart"),
+
+              withSpinner(
+                plotOutput(
+                  "batter_spray_chart",
+                  height = "600px"
+                ),
+                type = 1
+              ),
+
+              p("Spray chart data are currently available for 2026 NCAA postseason games.
+                Pitchers throws NA means the pitcher is not on a team in the conference data set.")
+
+              ),
+
 
             nav_panel(
               "Pitchers",
@@ -320,15 +636,18 @@ ui <- fluidPage(
 
               p("Percentiles are calculated within each season among selected conference players
                 who meet the minimum IP threshold set by the user.")
-            ),
+            )
 
           )
         ),
 
         nav_panel(
           "Conference Leaderboard",
+
           h3(textOutput("team_leader_title")),
+
           downloadButton("download_leader", "Download CSV"),
+
           withSpinner(
             reactableOutput("team_leader_table"),
             type = 1
@@ -337,10 +656,13 @@ ui <- fluidPage(
 
         nav_panel(
           "Conference Visualizations",
+
           h3(textOutput("visualization_title")),
+
           card(
             style = "min-height: 700px;",  # set so the panel is long enough to see the drop down options
             p("Select a metric to display a team comparison chart."),
+
             selectInput(
               "team_metric",
               "Metric",
@@ -350,11 +672,13 @@ ui <- fluidPage(
                 "FIP vs K-BB%" = "pitching_profile",
                 "BB% vs ISO %iles" = "plate_discipline_vs_power")
             ),
+
             withSpinner(
               plotOutput("team_plot",
                        height = "500px"),
               type = 1
               ), # keeps text from overlapping plot
+
             uiOutput("plot_description") # allows for multiple paragraph description under plot
           )
         ),
@@ -389,10 +713,11 @@ ui <- fluidPage(
           p("Created by Hana Baskin as a project exploring advanced analytics in college baseball.")
         )
       )
-
     )
   )
 )
+
+
 
 logos <- tibble(
   Team = c(
@@ -742,11 +1067,18 @@ server <- function(input, output, session) {
         filter(Team == input$Team)
     }
 
+    batter_choices <- batter_choices |>
+      distinct(player_id, Name) |>
+      filter(!is.na(player_id), !is.na(Name)) |>
+      arrange(Name)
 
     updateSelectInput(
       session,
       "batter_select",
-      choices = sort(unique(batter_choices$Name))
+      choices = setNames(
+        batter_choices$player_id,
+        batter_choices$Name
+      )
     )
 
   })
@@ -791,6 +1123,7 @@ server <- function(input, output, session) {
       ungroup() |>
       select(
         Season,
+        player_id,
         Name,
         wRC_plus_percentile,
         BB_percentile,
@@ -803,10 +1136,10 @@ server <- function(input, output, session) {
     college_batting |>
       left_join(
         batter_percentile,
-        by = c("Season", "Name"),
+        by = c("Season", "player_id"),
         relationship = "many-to-many"
       ) |>
-      filter(Name == input$batter_select) |>
+      filter(player_id == input$batter_select) |>
       arrange(desc(Season))
 
   })
@@ -902,6 +1235,127 @@ server <- function(input, output, session) {
         bordered = TRUE,
         defaultPageSize = 20
       )
+
+    })
+
+
+  output$batter_spray_chart <- renderPlot({
+
+    # Convert selected Sports Reference ID to player name
+    selected_batter <- college_batting |>
+      filter(player_id == input$batter_select) |> # Keeps every row in college_batting belonging to the selected player id (multiple rows for playing multiple seasons)
+      distinct(Name) |> # collapses so each name occurs once
+      pull(Name) # extracts the Name column as a character vector rather than leaving it as a tibble
+
+
+    req(!is.na(selected_batter))
+
+    selected_last_name <- get_last_name(selected_batter)
+
+
+    initial <- str_sub(selected_batter, 1, 1) # takes the first character of the selected name
+
+    # ESPN player name is first initial, period, last name
+    espn_player_pattern <- paste0(
+      "^", # require the name match to occur at the beginning of the play phrase
+      initial, # first character of name
+      "\\. ", # add period after first character
+      selected_last_name, # last name
+      "\\b"
+    )
+
+    # transforms Sports Reference names to ESPN names to matching ESPN player id
+    espn_batter_ids <- batted_balls_multi |>
+      filter(
+        str_detect(
+          result,
+          regex(espn_player_pattern, ignore_case = TRUE)
+        )
+      ) |>
+      distinct(batter_id) |>
+      pull(batter_id)
+
+    req(length(espn_batter_ids) >= 1)
+
+    spray_data <- batted_balls_spray |>
+      filter(batter_id %in% espn_batter_ids)
+
+    # info for each play in the spray chart
+    print(
+      spray_data |>
+        arrange(date, game_id, at_bat_id) |>
+        select(
+          date,
+          game_id,
+          pitcher_espn_name,
+          pitcher_hand,
+          result,
+          hit_x,
+          hit_y
+        ),
+      n = Inf,
+      width = Inf
+    )
+
+    req(nrow(spray_data) > 0)
+
+     ggplot() +
+
+      # foul lines
+      geom_path(
+        data = foul_lines,
+        aes(x = x, y = y),
+        linewidth = 1
+      ) +
+
+      # infield diamond
+      geom_path(
+        data = diamond,
+        aes(x = x, y = y),
+        linewidth = 1
+      ) +
+
+      # bases
+      geom_point(
+        data = tibble(
+          x = c(third_x, second_x, first_x),
+          y = c(third_y, second_y, first_y)
+        ),
+        aes(x = x, y = y),
+        shape = 22,
+        size = 4
+      ) +
+
+      # batted balls
+      geom_point(
+        data = spray_data,
+        aes(
+          x = x_svg,
+          y = y_svg,
+          color = pitcher_hand
+          ),
+        alpha = 0.75,
+        size = 3
+      ) +
+
+       scale_color_manual(
+         values = c(
+           "Left" = "#1f77b4",
+           "Right" = "#d62728"
+         ),
+         na.value = "grey70",
+         name = "Pitcher throws"
+       ) +
+
+      coord_cartesian(
+        xlim = c(0, 250),
+        ylim = c(225, 0),
+        expand = FALSE
+        ) +
+
+      facet_wrap(~ year) +
+
+      theme_void()
 
   })
 
